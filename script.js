@@ -1,6 +1,8 @@
 const navLinks = document.querySelectorAll('header nav a');
 const sections = document.querySelectorAll('main section');
 const contactForm = document.getElementById('contactForm');
+const aboutCarousel = document.querySelector('.about-carousel-slider');
+const aboutDots = document.querySelectorAll('.about-carousel-dot');
 
 navLinks.forEach((link) => {
   link.addEventListener('click', (event) => {
@@ -53,6 +55,29 @@ if (totalSlides > 1) {
   setInterval(() => {
     showSlide((currentSlide + 1) % totalSlides);
   }, 5000);
+}
+
+if (aboutCarousel && aboutDots.length > 0) {
+  let currentAboutIndex = 0;
+  const totalAboutSlides = aboutDots.length;
+
+  const showAboutSlide = (index) => {
+    currentAboutIndex = index;
+    aboutCarousel.style.transform = `translateX(-${index * 100}%)`;
+    aboutDots.forEach((dot) => {
+      dot.classList.toggle('active', Number(dot.dataset.slide) === index);
+    });
+  };
+
+  aboutDots.forEach((dot) => {
+    dot.addEventListener('click', () => showAboutSlide(Number(dot.dataset.slide)));
+  });
+
+  if (totalAboutSlides > 1) {
+    setInterval(() => {
+      showAboutSlide((currentAboutIndex + 1) % totalAboutSlides);
+    }, 5000);
+  }
 }
 
 if (contactForm) {
