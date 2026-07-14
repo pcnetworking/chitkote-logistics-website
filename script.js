@@ -517,7 +517,7 @@ if (btnPrev) {
 }
 
 if (contactForm) {
-  contactForm.addEventListener('submit', async (event) => {
+  contactForm.addEventListener('submit', (event) => {
     event.preventDefault();
     
     if (validateCurrentStep()) {
@@ -538,47 +538,6 @@ if (contactForm) {
       else if (vehiclePref === 'open') vehicleName = "Open Body Truck (Up to 25 Tons)";
       else if (vehiclePref === 'not_sure') vehicleName = "Not Sure (Coordinator Decides)";
 
-      // Disable submit button temporarily to prevent duplicate clicks
-      btnSubmit.disabled = true;
-      const originalSubmitText = btnSubmit.textContent;
-      btnSubmit.textContent = "Submitting Enquiry...";
-
-      // Web3Forms API Key Config
-      const WEB3FORMS_ACCESS_KEY = "fbf28086-def8-491b-9c38-7ae1a6ba0a58"; // Web3Forms Access Key for chitkote.logistics@gmail.com
-
-      if (WEB3FORMS_ACCESS_KEY && WEB3FORMS_ACCESS_KEY !== "YOUR_WEB3FORMS_ACCESS_KEY") {
-        try {
-          await fetch("https://api.web3forms.com/submit", {
-            method: "POST",
-            headers: {
-              "Content-Type": "application/json",
-              "Accept": "application/json"
-            },
-            body: JSON.stringify({
-              access_key: WEB3FORMS_ACCESS_KEY,
-              subject: `New Cargo Enquiry from ${company} (${origin} to ${destination})`,
-              from_name: "Chitkote Logistics Website",
-              to_email: "chitkote.logistics@gmail.com",
-              company: company,
-              phone: phone,
-              email: email,
-              origin: origin,
-              destination: destination,
-              pickup_date: pickupDate,
-              cargo_details: `${cargoType} (${weight} Tons)`,
-              vehicle_preference: vehicleName,
-              notes: message
-            })
-          });
-        } catch (err) {
-          console.error("Email submission error:", err);
-        }
-      }
-
-      // Restore submit button state
-      btnSubmit.disabled = false;
-      btnSubmit.textContent = originalSubmitText;
-
       // Format WhatsApp message
       const whatsappMessage = `*New Quote Request - Chitkote Logistics*\n` +
                               `---------------------------------------\n` +
@@ -594,7 +553,7 @@ if (contactForm) {
       const encodedMsg = encodeURIComponent(whatsappMessage);
       const whatsappUrl = `https://wa.me/919390003955?text=${encodedMsg}`;
 
-      alert(`Thank you, ${company}! Your quote request has been sent via email.\n\nClicking OK will direct you to WhatsApp to connect directly with our Cargo Coordinator.`);
+      alert(`Thank you, ${company}! Your quote details have been compiled.\n\nClicking OK will direct you to WhatsApp to send your request directly to our Cargo Coordinator.`);
       
       // Open WhatsApp in new tab
       window.open(whatsappUrl, '_blank');
