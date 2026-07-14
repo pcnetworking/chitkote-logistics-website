@@ -141,6 +141,8 @@ const btnCalculate = document.getElementById('btnCalculate');
 const estOrigin = document.getElementById('estOrigin');
 const estDestination = document.getElementById('estDestination');
 const estTruck = document.getElementById('estTruck');
+const estCompany = document.getElementById('estCompany');
+const estPhone = document.getElementById('estPhone');
 const estimatorResult = document.getElementById('estimatorResult');
 const resDistance = document.getElementById('resDistance');
 const resTime = document.getElementById('resTime');
@@ -151,6 +153,8 @@ if (btnCalculate) {
     const origin = estOrigin.value;
     const dest = estDestination.value;
     const truck = estTruck.value;
+    const company = estCompany ? estCompany.value.trim() : '';
+    const phone = estPhone ? estPhone.value.trim() : '';
 
     if (!origin || !dest) {
       alert("Please select both Origin and Destination hubs.");
@@ -159,6 +163,18 @@ if (btnCalculate) {
 
     if (origin === dest) {
       alert("Origin and Destination cannot be the same city.");
+      return;
+    }
+
+    if (!company) {
+      alert("Please enter your Company Name to view the estimate.");
+      estCompany.focus();
+      return;
+    }
+
+    if (!phone || phone.length < 10) {
+      alert("Please enter a valid 10-digit Mobile Number to view the estimate.");
+      estPhone.focus();
       return;
     }
 
@@ -187,12 +203,30 @@ if (btnCalculate) {
 
     estimatorResult.style.display = 'block';
 
-    // Autofill Quote Form Step 1
+    // Autofill Quote Form
     const quoteOrigin = document.getElementById('quoteOrigin');
     const quoteDestination = document.getElementById('quoteDestination');
-    if (quoteOrigin && quoteDestination) {
-      quoteOrigin.value = origin;
-      quoteDestination.value = dest;
+    const formCompany = document.querySelector('input[name="company"]');
+    const formPhone = document.querySelector('input[name="phone"]');
+    const formVehiclePref = document.querySelector('select[name="vehiclePref"]');
+
+    if (quoteOrigin) quoteOrigin.value = origin;
+    if (quoteDestination) quoteDestination.value = dest;
+    if (formCompany) formCompany.value = company;
+    if (formPhone) formPhone.value = phone;
+    if (formVehiclePref) formVehiclePref.value = truck;
+  });
+}
+
+// 3.5 Cost Estimator & Quote Wizard Sync
+const lnkFinishBooking = document.getElementById('lnkFinishBooking');
+if (lnkFinishBooking) {
+  lnkFinishBooking.addEventListener('click', () => {
+    const quoteDate = document.getElementById('quoteDate');
+    if (quoteDate) {
+      setTimeout(() => {
+        quoteDate.focus();
+      }, 600);
     }
   });
 }
@@ -483,7 +517,7 @@ if (btnPrev) {
 }
 
 if (contactForm) {
-  contactForm.addEventListener('submit', (event) => {
+  contactForm.addEventListener('submit', async (event) => {
     event.preventDefault();
     
     if (validateCurrentStep()) {
@@ -504,6 +538,47 @@ if (contactForm) {
       else if (vehiclePref === 'open') vehicleName = "Open Body Truck (Up to 25 Tons)";
       else if (vehiclePref === 'not_sure') vehicleName = "Not Sure (Coordinator Decides)";
 
+      // Disable submit button temporarily to prevent duplicate clicks
+      btnSubmit.disabled = true;
+      const originalSubmitText = btnSubmit.textContent;
+      btnSubmit.textContent = "Submitting Enquiry...";
+
+      // Web3Forms API Key Config
+      const WEB3FORMS_ACCESS_KEY = "fbf28086-def8-491b-9c38-7ae1a6ba0a58"; // Web3Forms Access Key for chitkote.logistics@gmail.com
+
+      if (WEB3FORMS_ACCESS_KEY && WEB3FORMS_ACCESS_KEY !== "YOUR_WEB3FORMS_ACCESS_KEY") {
+        try {
+          await fetch("https://api.web3forms.com/submit", {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/json",
+              "Accept": "application/json"
+            },
+            body: JSON.stringify({
+              access_key: WEB3FORMS_ACCESS_KEY,
+              subject: `New Cargo Enquiry from ${company} (${origin} to ${destination})`,
+              from_name: "Chitkote Logistics Website",
+              to_email: "chitkote.logistics@gmail.com",
+              company: company,
+              phone: phone,
+              email: email,
+              origin: origin,
+              destination: destination,
+              pickup_date: pickupDate,
+              cargo_details: `${cargoType} (${weight} Tons)`,
+              vehicle_preference: vehicleName,
+              notes: message
+            })
+          });
+        } catch (err) {
+          console.error("Email submission error:", err);
+        }
+      }
+
+      // Restore submit button state
+      btnSubmit.disabled = false;
+      btnSubmit.textContent = originalSubmitText;
+
       // Format WhatsApp message
       const whatsappMessage = `*New Quote Request - Chitkote Logistics*\n` +
                               `---------------------------------------\n` +
@@ -519,7 +594,7 @@ if (contactForm) {
       const encodedMsg = encodeURIComponent(whatsappMessage);
       const whatsappUrl = `https://wa.me/919390003955?text=${encodedMsg}`;
 
-      alert(`Thank you, ${company}! Your quote details have been compiled.\n\nClicking OK will direct you to WhatsApp to send your request directly to our Cargo Coordinator.`);
+      alert(`Thank you, ${company}! Your quote request has been sent via email.\n\nClicking OK will direct you to WhatsApp to connect directly with our Cargo Coordinator.`);
       
       // Open WhatsApp in new tab
       window.open(whatsappUrl, '_blank');
@@ -529,6 +604,82 @@ if (contactForm) {
       currentStep = 1;
       updateWizardUI();
     }
+  });
+}
+
+// 8. Interactive Corridor Map Logic
+const mapHubs = document.querySelectorAll('.map-hub');
+const routeCards = document.querySelectorAll('.route-card');
+const mapLinks = document.querySelectorAll('.map-link');
+
+if (mapHubs.length > 0) {
+  mapHubs.forEach(hub => {
+    hub.addEventListener('mouseenter', () => {
+      const city = hub.getAttribute('data-city').toLowerCase();
+      
+      // Highlight map links that contain abbreviation of hovered hub
+      const prefix = city === 'mumbai' ? 'bom' : (city === 'pune' ? 'pnq' : (city === 'hyderabad' ? 'hyd' : (city === 'bengaluru' ? 'blr' : (city === 'chennai' ? 'maa' : (city === 'coimbatore' ? 'cbe' : 'ixm')))));
+      mapLinks.forEach(link => {
+        if (link.className.baseVal.includes(prefix)) {
+          link.classList.add('active');
+        }
+      });
+
+      // Highlight route cards matching city
+      routeCards.forEach(card => {
+        const route = card.getAttribute('data-route');
+        if (route.includes(city) || (city === 'chennai' && route.includes('tamilnadu'))) {
+          card.classList.add('active');
+        }
+      });
+    });
+
+    hub.addEventListener('mouseleave', () => {
+      mapLinks.forEach(link => link.classList.remove('active'));
+      routeCards.forEach(card => card.classList.remove('active'));
+    });
+  });
+
+  // Inverse highlight: hover cards highlight corresponding map features
+  routeCards.forEach(card => {
+    card.addEventListener('mouseenter', () => {
+      const route = card.getAttribute('data-route');
+      let lines = [];
+      let hubs = [];
+
+      if (route === 'hyderabad-chennai') {
+        lines = ['.line-hyd-maa'];
+        hubs = ['.hub-hyd', '.hub-maa'];
+      } else if (route === 'hyderabad-coimbatore') {
+        lines = ['.line-hyd-blr', '.line-blr-cbe'];
+        hubs = ['.hub-hyd', '.hub-blr', '.hub-cbe'];
+      } else if (route === 'hyderabad-madurai') {
+        lines = ['.line-hyd-blr', '.line-blr-maa', '.line-maa-ixm'];
+        hubs = ['.hub-hyd', '.hub-blr', '.hub-maa', '.hub-ixm'];
+      } else if (route === 'mumbai-chennai') {
+        lines = ['.line-bom-hyd', '.line-hyd-maa'];
+        hubs = ['.hub-mumbai', '.hub-hyd', '.hub-maa'];
+      } else if (route === 'pune-chennai') {
+        lines = ['.line-pnq-hyd', '.line-hyd-maa'];
+        hubs = ['.hub-pune', '.hub-hyd', '.hub-maa'];
+      } else if (route === 'tamilnadu-maharashtra') {
+        lines = ['.line-bom-hyd', '.line-bom-pnq', '.line-hyd-maa'];
+        hubs = ['.hub-mumbai', '.hub-pune', '.hub-hyd', '.hub-maa'];
+      }
+
+      lines.forEach(sel => {
+        document.querySelectorAll(sel).forEach(el => el.classList.add('active'));
+      });
+      hubs.forEach(sel => {
+        const h = document.querySelector(sel);
+        if (h) h.classList.add('active');
+      });
+    });
+
+    card.addEventListener('mouseleave', () => {
+      mapLinks.forEach(link => link.classList.remove('active'));
+      mapHubs.forEach(hub => hub.classList.remove('active'));
+    });
   });
 }
 

@@ -9,7 +9,7 @@
     content="Chitkote Logistics delivers modern container, open truck and industrial cargo logistics across Tamil Nadu, Maharashtra and Telangana.">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap"
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Outfit:wght@300;400;500;600;700;800&display=swap"
     rel="stylesheet">
   <link rel="stylesheet" href="style.css">
 </head>
@@ -18,9 +18,20 @@
 
   <!-- Header -->
   <header class="site-header">
+    <div class="top-bar">
+      <div class="top-bar-inner">
+        <div class="top-bar-left">
+          <span class="badge-mini">✓ GST Registered</span>
+          <span class="badge-mini">✓ IBA Approved Vendor</span>
+        </div>
+        <div class="top-bar-right">
+          <span>24/7 Dispatch Desk: <strong><a href="tel:+919390003955">+91 93900 03955</a></strong></span>
+        </div>
+      </div>
+    </div>
     <div class="header-inner">
       <a class="brand" href="#home">
-        <span class="brand-mark">Ck</span>
+        <img class="brand-logo" src="Images/newlogo_processed.png" alt="Chitkote Logistics Logo" width="69" height="45">
         <span class="brand-name">Chitkote Logistics</span>
       </a>
       <nav class="main-nav" aria-label="Primary navigation">
@@ -31,7 +42,10 @@
         <a href="#faq">FAQ</a>
         <a href="#contact">Contact</a>
       </nav>
-      <a class="header-cta" href="tel:+919390003955">Call Now</a>
+      <a class="header-cta" href="tel:+919390003955">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" style="margin-right:6px;"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
+        Call Coordinator
+      </a>
       <button class="mobile-nav-toggle" aria-expanded="false" aria-label="Open navigation menu">
         <span></span>
         <span></span>
@@ -79,45 +93,59 @@
         <!-- Route Estimator Widget -->
         <div class="hero-estimator-card">
           <h3>Route & Cost Estimator</h3>
-          <p class="card-subtitle">Get instant distance and approximate price range details.</p>
+          <p class="card-subtitle">Enter route & business details for an instant freight estimate.</p>
 
           <div class="estimator-inputs">
-            <label>
-              <span>Origin Hub</span>
-              <select id="estOrigin">
-                <option value="" disabled selected>Select Origin City</option>
-                <option value="Hyderabad">Hyderabad</option>
-                <option value="Chennai">Chennai</option>
-                <option value="Pune">Pune</option>
-                <option value="Mumbai">Mumbai</option>
-                <option value="Coimbatore">Coimbatore</option>
-                <option value="Madurai">Madurai</option>
-                <option value="Bengaluru">Bengaluru</option>
-              </select>
-            </label>
+            <div class="estimator-row">
+              <label>
+                <span>Origin Hub*</span>
+                <select id="estOrigin" required>
+                  <option value="" disabled selected>Select Origin</option>
+                  <option value="Hyderabad">Hyderabad</option>
+                  <option value="Chennai">Chennai</option>
+                  <option value="Pune">Pune</option>
+                  <option value="Mumbai">Mumbai</option>
+                  <option value="Coimbatore">Coimbatore</option>
+                  <option value="Madurai">Madurai</option>
+                  <option value="Bengaluru">Bengaluru</option>
+                </select>
+              </label>
+
+              <label>
+                <span>Destination Hub*</span>
+                <select id="estDestination" required>
+                  <option value="" disabled selected>Select Destination</option>
+                  <option value="Chennai">Chennai</option>
+                  <option value="Hyderabad">Hyderabad</option>
+                  <option value="Pune">Pune</option>
+                  <option value="Mumbai">Mumbai</option>
+                  <option value="Coimbatore">Coimbatore</option>
+                  <option value="Madurai">Madurai</option>
+                  <option value="Bengaluru">Bengaluru</option>
+                </select>
+              </label>
+            </div>
 
             <label>
-              <span>Destination Hub</span>
-              <select id="estDestination">
-                <option value="" disabled selected>Select Destination City</option>
-                <option value="Chennai">Chennai</option>
-                <option value="Hyderabad">Hyderabad</option>
-                <option value="Pune">Pune</option>
-                <option value="Mumbai">Mumbai</option>
-                <option value="Coimbatore">Coimbatore</option>
-                <option value="Madurai">Madurai</option>
-                <option value="Bengaluru">Bengaluru</option>
-              </select>
-            </label>
-
-            <label>
-              <span>Vehicle Type</span>
-              <select id="estTruck">
+              <span>Vehicle Type*</span>
+              <select id="estTruck" required>
                 <option value="20ft">20 ft Container Truck (7-9 Tons)</option>
                 <option value="32ft">32 ft Container Truck (15-20 Tons)</option>
                 <option value="open">Open Body Truck (Up to 25 Tons)</option>
               </select>
             </label>
+
+            <div class="estimator-row">
+              <label>
+                <span>Company Name*</span>
+                <input type="text" id="estCompany" placeholder="e.g. Chitkote Steel" required>
+              </label>
+
+              <label>
+                <span>Mobile Number*</span>
+                <input type="tel" id="estPhone" placeholder="e.g. 9876543210" required>
+              </label>
+            </div>
           </div>
 
           <!-- Dynamic Result -->
@@ -136,9 +164,42 @@
               <span class="price-label">Estimated Price Range</span>
               <span id="resPrice" class="price-value">--</span>
             </div>
+            <div class="result-actions" style="margin-top:12px;">
+              <a href="#contact" id="lnkFinishBooking" class="btn btn-secondary" style="width:100%; font-size:0.85rem; padding:8px 16px;">Finish Quote Request</a>
+            </div>
           </div>
 
           <button id="btnCalculate" class="btn btn-primary btn-calc">Calculate Estimate</button>
+        </div>
+      </div>
+    </section>
+
+    <!-- Trust Indicators Logo Strip -->
+    <section class="trust-banner">
+      <div class="trust-banner-inner">
+        <div class="trust-meta">
+          <strong>Certified Logistics Partner:</strong>
+          <span class="trust-badge">ISO 9001:2015</span>
+          <span class="trust-badge">GST Compliance</span>
+          <span class="trust-badge">IBA Approved Carrier</span>
+          <span class="trust-badge">Cargo Transit Insured</span>
+        </div>
+        <div class="trust-logos-marquee" aria-hidden="true">
+          <div class="marquee-track">
+            <span>Automotive Parts</span>
+            <span>Heavy Machinery</span>
+            <span>FMCG Products</span>
+            <span>Structural Steel</span>
+            <span>Pharmaceuticals</span>
+            <span>Construction Infrastructure</span>
+            <!-- Duplicate for infinite marquee loop -->
+            <span>Automotive Parts</span>
+            <span>Heavy Machinery</span>
+            <span>FMCG Products</span>
+            <span>Structural Steel</span>
+            <span>Pharmaceuticals</span>
+            <span>Construction Infrastructure</span>
+          </div>
         </div>
       </div>
     </section>
@@ -154,18 +215,24 @@
 
       <div class="stats-grid">
         <div class="stat-card">
-          <div class="stat-card-icon">⚡</div>
+          <div class="stat-card-icon">
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg>
+          </div>
           <h3 class="stat-title">Rapid Freight Fulfillment</h3>
           <p>Flexible scheduling and dedicated route dispatch teams to keep your supply chain active without delay.</p>
         </div>
         <div class="stat-card">
-          <div class="stat-card-icon">🛡️</div>
+          <div class="stat-card-icon">
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+          </div>
           <h3 class="stat-title">Trusted Reliability</h3>
           <p>Strict cargo safety audits, certified experienced drivers, and transit insurance options to ensure peace of
             mind.</p>
         </div>
         <div class="stat-card">
-          <div class="stat-card-icon">📞</div>
+          <div class="stat-card-icon">
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M15.05 5A5 5 0 0 1 19 8.95M15.05 1A9 9 0 0 1 23 8.94m-1 7.98v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
+          </div>
           <h3 class="stat-title">Dedicated Point-of-Contact</h3>
           <p>A single dedicated representative manages your shipment planning and provides direct status updates 24/7.
           </p>
@@ -184,21 +251,27 @@
 
       <div class="service-grid">
         <article class="service-card">
-          <div class="service-icon">🚚</div>
+          <div class="service-icon">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="1" y="3" width="15" height="13" rx="2" ry="2"/><polygon points="16 8 20 8 23 11 23 16 16 16 16 8"/><circle cx="5.5" cy="18.5" r="2.5"/><circle cx="18.5" cy="18.5" r="2.5"/></svg>
+          </div>
           <h3>Container Truck Transport</h3>
           <p>Highly secure, weatherproof container transport for long-haul cargo, valuables, textiles, FMCG, and
             industrial goods.</p>
         </article>
 
         <article class="service-card">
-          <div class="service-icon">📦</div>
+          <div class="service-icon">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><line x1="16.5" y1="9.4" x2="7.5" y2="4.21"/><polygon points="12 22.08 12 12 3 6.92 3 17.08 12 22.08"/><polygon points="12 22.08 21 17.08 21 6.92 12 12 12 22.08"/><polygon points="12 12 21 6.92 12 1.84 3 6.92 12 12"/><line x1="12" y1="5.14" x2="12" y2="12"/></svg>
+          </div>
           <h3>Open Truck Transport</h3>
           <p>Heavy-duty open-body trucks for quick transport of building materials, metal coils, oversize fabrication
             items, and machinery.</p>
         </article>
 
         <article class="service-card">
-          <div class="service-icon">🏭</div>
+          <div class="service-icon">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M2 20V9l4 2 4-2 4 2V4l8 3v13H2z"/><path d="M18 11h4"/><path d="M18 15h4"/></svg>
+          </div>
           <h3>Industrial Cargo</h3>
           <p>Customized contract logistics services for heavy manufacturing plants, distribution networks, and raw
             material supply lines.</p>
@@ -242,22 +315,30 @@
               <div id="timelineProgress" class="tracker-timeline-progress"></div>
 
               <div class="timeline-step" id="step1">
-                <div class="step-node">1</div>
+                <div class="step-node">
+                  <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="20 6 9 17 4 12"/></svg>
+                </div>
                 <div class="step-label">Received</div>
               </div>
 
               <div class="timeline-step" id="step2">
-                <div class="step-node">2</div>
+                <div class="step-node">
+                  <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="20 6 9 17 4 12"/></svg>
+                </div>
                 <div class="step-label">Dispatched</div>
               </div>
 
               <div class="timeline-step" id="step3">
-                <div class="step-node">3</div>
+                <div class="step-node">
+                  <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="20 6 9 17 4 12"/></svg>
+                </div>
                 <div class="step-label">In Transit</div>
               </div>
 
               <div class="timeline-step" id="step4">
-                <div class="step-node">4</div>
+                <div class="step-node">
+                  <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="20 6 9 17 4 12"/></svg>
+                </div>
                 <div class="step-label">Delivered</div>
               </div>
             </div>
@@ -387,7 +468,29 @@
           </div>
 
           <div class="fleet-spec-image">
-            <div class="fleet-icon-wrapper">🚛</div>
+            <svg class="fleet-svg" width="240" height="150" viewBox="0 0 240 150" fill="none" xmlns="http://www.w3.org/2000/svg" aria-label="20 ft Container Truck Wireframe">
+              <ellipse cx="120" cy="135" rx="100" ry="8" fill="rgba(15, 30, 54, 0.08)" />
+              <path d="M18 100H45V60H30L18 80V100Z" fill="var(--primary)" />
+              <path d="M18 100H28V114H18V100Z" fill="#64748B" />
+              <path d="M22 80H35V65H30L22 75V80Z" fill="#38BDF8" opacity="0.8" />
+              <rect x="12" y="90" width="6" height="4" rx="1" fill="#FF5A00" />
+              <rect x="44" y="95" width="20" height="10" fill="#475569" />
+              <rect x="62" y="45" width="150" height="60" rx="4" fill="var(--primary-light)" stroke="var(--primary)" stroke-width="2" />
+              <line x1="82" y1="46" x2="82" y2="104" stroke="rgba(255,255,255,0.15)" stroke-width="2" />
+              <line x1="102" y1="46" x2="102" y2="104" stroke="rgba(255,255,255,0.15)" stroke-width="2" />
+              <line x1="122" y1="46" x2="122" y2="104" stroke="rgba(255,255,255,0.15)" stroke-width="2" />
+              <line x1="142" y1="46" x2="142" y2="104" stroke="rgba(255,255,255,0.15)" stroke-width="2" />
+              <line x1="162" y1="46" x2="162" y2="104" stroke="rgba(255,255,255,0.15)" stroke-width="2" />
+              <line x1="182" y1="46" x2="182" y2="104" stroke="rgba(255,255,255,0.15)" stroke-width="2" />
+              <line x1="202" y1="46" x2="202" y2="104" stroke="rgba(255,255,255,0.15)" stroke-width="2" />
+              <line x1="210" y1="45" x2="210" y2="105" stroke="var(--accent)" stroke-width="3" />
+              <circle cx="38" cy="120" r="14" fill="#0F172A" />
+              <circle cx="38" cy="120" r="6" fill="#94A3B8" />
+              <circle cx="95" cy="120" r="14" fill="#0F172A" />
+              <circle cx="95" cy="120" r="6" fill="#94A3B8" />
+              <circle cx="175" cy="120" r="14" fill="#0F172A" />
+              <circle cx="175" cy="120" r="6" fill="#94A3B8" />
+            </svg>
           </div>
         </div>
       </div>
@@ -427,7 +530,33 @@
           </div>
 
           <div class="fleet-spec-image">
-            <div class="fleet-icon-wrapper">🚚</div>
+            <svg class="fleet-svg" width="280" height="150" viewBox="0 0 280 150" fill="none" xmlns="http://www.w3.org/2000/svg" aria-label="32 ft Container Truck Wireframe">
+              <ellipse cx="140" cy="135" rx="125" ry="8" fill="rgba(15, 30, 54, 0.08)" />
+              <path d="M15 102H48V50H32L15 80V102Z" fill="var(--primary)" />
+              <path d="M20 78H38V56H32L20 70V78Z" fill="#38BDF8" opacity="0.8" />
+              <rect x="8" y="92" width="7" height="5" rx="1" fill="#FF5A00" />
+              <rect x="25" y="102" width="23" height="12" fill="#475569" />
+              <rect x="48" y="96" width="16" height="8" fill="#94A3B8" />
+              <rect x="64" y="35" width="200" height="70" rx="4" fill="var(--primary-light)" stroke="var(--primary)" stroke-width="2" />
+              <line x1="84" y1="36" x2="84" y2="104" stroke="rgba(255,255,255,0.15)" stroke-width="2" />
+              <line x1="104" y1="36" x2="104" y2="104" stroke="rgba(255,255,255,0.15)" stroke-width="2" />
+              <line x1="124" y1="36" x2="124" y2="104" stroke="rgba(255,255,255,0.15)" stroke-width="2" />
+              <line x1="144" y1="36" x2="144" y2="104" stroke="rgba(255,255,255,0.15)" stroke-width="2" />
+              <line x1="164" y1="36" x2="164" y2="104" stroke="rgba(255,255,255,0.15)" stroke-width="2" />
+              <line x1="184" y1="36" x2="184" y2="104" stroke="rgba(255,255,255,0.15)" stroke-width="2" />
+              <line x1="204" y1="36" x2="204" y2="104" stroke="rgba(255,255,255,0.15)" stroke-width="2" />
+              <line x1="224" y1="36" x2="224" y2="104" stroke="rgba(255,255,255,0.15)" stroke-width="2" />
+              <line x1="244" y1="36" x2="244" y2="104" stroke="rgba(255,255,255,0.15)" stroke-width="2" />
+              <line x1="254" y1="35" x2="254" y2="105" stroke="var(--accent)" stroke-width="3" />
+              <circle cx="36" cy="120" r="14" fill="#0F172A" />
+              <circle cx="36" cy="120" r="6" fill="#94A3B8" />
+              <circle cx="98" cy="120" r="14" fill="#0F172A" />
+              <circle cx="98" cy="120" r="6" fill="#94A3B8" />
+              <circle cx="210" cy="120" r="14" fill="#0F172A" />
+              <circle cx="210" cy="120" r="6" fill="#94A3B8" />
+              <circle cx="238" cy="120" r="14" fill="#0F172A" />
+              <circle cx="238" cy="120" r="6" fill="#94A3B8" />
+            </svg>
           </div>
         </div>
       </div>
@@ -467,7 +596,34 @@
           </div>
 
           <div class="fleet-spec-image">
-            <div class="fleet-icon-wrapper">🏗️</div>
+            <svg class="fleet-svg" width="260" height="150" viewBox="0 0 260 150" fill="none" xmlns="http://www.w3.org/2000/svg" aria-label="Open Body Flatbed Truck Wireframe">
+              <ellipse cx="130" cy="135" rx="115" ry="8" fill="rgba(15, 30, 54, 0.08)" />
+              <path d="M15 100H45V60H30L15 80V100Z" fill="var(--primary)" />
+              <path d="M15 100H25V114H18V100Z" fill="#64748B" />
+              <path d="M19 80H35V65H30L19 75V80Z" fill="#38BDF8" opacity="0.8" />
+              <rect x="9" y="90" width="6" height="4" rx="1" fill="#FF5A00" />
+              <rect x="45" y="92" width="200" height="10" fill="#475569" />
+              <rect x="48" y="70" width="190" height="22" fill="var(--primary-light)" stroke="var(--primary)" stroke-width="1.5" />
+              <line x1="88" y1="70" x2="88" y2="92" stroke="rgba(255,255,255,0.15)" stroke-width="2" />
+              <line x1="128" y1="70" x2="128" y2="92" stroke="rgba(255,255,255,0.15)" stroke-width="2" />
+              <line x1="168" y1="70" x2="168" y2="92" stroke="rgba(255,255,255,0.15)" stroke-width="2" />
+              <line x1="208" y1="70" x2="208" y2="92" stroke="rgba(255,255,255,0.15)" stroke-width="2" />
+              <circle cx="108" cy="60" r="18" fill="#94A3B8" stroke="#475569" stroke-width="2" />
+              <circle cx="108" cy="60" r="6" fill="#F8FAFC" />
+              <rect x="150" y="44" width="36" height="26" fill="#D97706" rx="2" stroke="#B45309" stroke-width="1" />
+              <line x1="150" y1="44" x2="186" y2="70" stroke="#92400E" stroke-width="2" />
+              <line x1="186" y1="44" x2="150" y2="70" stroke="#92400E" stroke-width="2" />
+              <path d="M96 92L108 42L120 92" stroke="var(--accent)" stroke-width="2.5" stroke-linecap="round" />
+              <path d="M144 92L168 44L192 92" stroke="var(--accent)" stroke-width="2.5" stroke-linecap="round" />
+              <circle cx="36" cy="118" r="14" fill="#0F172A" />
+              <circle cx="36" cy="118" r="6" fill="#94A3B8" />
+              <circle cx="90" cy="118" r="14" fill="#0F172A" />
+              <circle cx="90" cy="118" r="6" fill="#94A3B8" />
+              <circle cx="180" cy="118" r="14" fill="#0F172A" />
+              <circle cx="180" cy="118" r="6" fill="#94A3B8" />
+              <circle cx="210" cy="118" r="14" fill="#0F172A" />
+              <circle cx="210" cy="118" r="6" fill="#94A3B8" />
+            </svg>
           </div>
         </div>
       </div>
@@ -482,30 +638,129 @@
           schedules.</p>
       </div>
 
-      <div class="routes-grid">
-        <div class="route-card">
-          <div class="route-icon">📍</div>
-          <div class="route-info">Hyderabad <span>→</span> Chennai</div>
+      <div class="routes-container">
+        <!-- Interactive SVG Corridor Map -->
+        <div class="routes-map-wrapper">
+          <svg class="corridor-map" width="420" height="420" viewBox="0 0 420 420" fill="none" xmlns="http://www.w3.org/2000/svg" aria-label="Interactive Corridors Map">
+            <!-- Map Grid guides -->
+            <defs>
+              <pattern id="map-grid" width="20" height="20" patternUnits="userSpaceOnUse">
+                <circle cx="2" cy="2" r="1" fill="rgba(15, 30, 54, 0.05)" />
+              </pattern>
+            </defs>
+            <rect width="420" height="420" fill="url(#map-grid)" rx="12" />
+
+            <!-- Connecting Route Links (dashed background vectors) -->
+            <!-- Pune to Mumbai -->
+            <line x1="120" y1="130" x2="100" y2="100" class="map-link line-bom-pnq" />
+            <!-- Mumbai to Hyderabad -->
+            <line x1="100" y1="100" x2="250" y2="180" class="map-link line-bom-hyd" />
+            <!-- Pune to Hyderabad -->
+            <line x1="120" y1="130" x2="250" y2="180" class="map-link line-pnq-hyd" />
+            <!-- Hyderabad to Bengaluru -->
+            <line x1="250" y1="180" x2="210" y2="280" class="map-link line-hyd-blr" />
+            <!-- Hyderabad to Chennai -->
+            <line x1="250" y1="180" x2="310" y2="300" class="map-link line-hyd-maa" />
+            <!-- Bengaluru to Chennai -->
+            <line x1="210" y1="280" x2="310" y2="300" class="map-link line-blr-maa" />
+            <!-- Chennai to Coimbatore -->
+            <line x1="310" y1="300" x2="160" y2="350" class="map-link line-maa-cbe" />
+            <!-- Chennai to Madurai -->
+            <line x1="310" y1="300" x2="210" y2="380" class="map-link line-maa-ixm" />
+            <!-- Bengaluru to Coimbatore -->
+            <line x1="210" y1="280" x2="160" y2="350" class="map-link line-blr-cbe" />
+            <!-- Coimbatore to Madurai -->
+            <line x1="160" y1="350" x2="210" y2="380" class="map-link line-cbe-ixm" />
+
+            <!-- Hub Nodes -->
+            <!-- Mumbai Hub -->
+            <g class="map-hub" data-city="Mumbai" tabindex="0">
+              <circle cx="100" cy="100" r="10" class="hub-pulse" />
+              <circle cx="100" cy="100" r="4.5" class="hub-core" />
+              <text x="50" y="94" class="hub-label">Mumbai</text>
+            </g>
+            <!-- Pune Hub -->
+            <g class="map-hub" data-city="Pune" tabindex="0">
+              <circle cx="120" cy="130" r="10" class="hub-pulse" />
+              <circle cx="120" cy="130" r="4.5" class="hub-core" />
+              <text x="80" y="142" class="hub-label">Pune</text>
+            </g>
+            <!-- Hyderabad Head Office -->
+            <g class="map-hub" data-city="Hyderabad" tabindex="0">
+              <circle cx="250" cy="180" r="13" class="hub-pulse primary-hub" />
+              <circle cx="250" cy="180" r="6" class="hub-core primary-hub-core" />
+              <text x="268" y="184" class="hub-label bold">HYD (HQ)</text>
+            </g>
+            <!-- Bengaluru Hub -->
+            <g class="map-hub" data-city="Bengaluru" tabindex="0">
+              <circle cx="210" cy="280" r="10" class="hub-pulse" />
+              <circle cx="210" cy="280" r="4.5" class="hub-core" />
+              <text x="138" y="284" class="hub-label">Bengaluru</text>
+            </g>
+            <!-- Chennai Hub -->
+            <g class="map-hub" data-city="Chennai" tabindex="0">
+              <circle cx="310" cy="300" r="10" class="hub-pulse" />
+              <circle cx="310" cy="300" r="4.5" class="hub-core" />
+              <text x="324" y="304" class="hub-label">Chennai</text>
+            </g>
+            <!-- Coimbatore Hub -->
+            <g class="map-hub" data-city="Coimbatore" tabindex="0">
+              <circle cx="160" cy="350" r="10" class="hub-pulse" />
+              <circle cx="160" cy="350" r="4.5" class="hub-core" />
+              <text x="82" y="354" class="hub-label">Coimbatore</text>
+            </g>
+            <!-- Madurai Hub -->
+            <g class="map-hub" data-city="Madurai" tabindex="0">
+              <circle cx="210" cy="380" r="10" class="hub-pulse" />
+              <circle cx="210" cy="380" r="4.5" class="hub-core" />
+              <text x="224" y="384" class="hub-label">Madurai</text>
+            </g>
+          </svg>
         </div>
-        <div class="route-card">
-          <div class="route-icon">📍</div>
-          <div class="route-info">Hyderabad <span>→</span> Coimbatore</div>
-        </div>
-        <div class="route-card">
-          <div class="route-icon">📍</div>
-          <div class="route-info">Hyderabad <span>→</span> Madurai</div>
-        </div>
-        <div class="route-card">
-          <div class="route-icon">📍</div>
-          <div class="route-info">Mumbai <span>→</span> Chennai</div>
-        </div>
-        <div class="route-card">
-          <div class="route-icon">📍</div>
-          <div class="route-info">Pune <span>→</span> Tamil Nadu</div>
-        </div>
-        <div class="route-card">
-          <div class="route-icon">📍</div>
-          <div class="route-info">Tamil Nadu <span>→</span> Maharashtra</div>
+
+        <!-- Routes Grid Info -->
+        <div class="routes-info-side">
+          <h3 style="font-size:1.45rem; font-weight:700; color:var(--primary); margin-bottom:12px;">Active Industrial Logistics Corridors</h3>
+          <p style="color:var(--muted); font-size:0.92rem; margin-bottom:24px;">We connect Southern and Western regional manufacturing zones with weekly contract runs, dedicated fleet availability, and tracked vehicles.</p>
+          
+          <div class="routes-grid">
+            <div class="route-card" data-route="hyderabad-chennai">
+              <div class="route-icon">
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
+              </div>
+              <div class="route-info">Hyderabad <span>→</span> Chennai</div>
+            </div>
+            <div class="route-card" data-route="hyderabad-coimbatore">
+              <div class="route-icon">
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
+              </div>
+              <div class="route-info">Hyderabad <span>→</span> Coimbatore</div>
+            </div>
+            <div class="route-card" data-route="hyderabad-madurai">
+              <div class="route-icon">
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
+              </div>
+              <div class="route-info">Hyderabad <span>→</span> Madurai</div>
+            </div>
+            <div class="route-card" data-route="mumbai-chennai">
+              <div class="route-icon">
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
+              </div>
+              <div class="route-info">Mumbai <span>→</span> Chennai</div>
+            </div>
+            <div class="route-card" data-route="pune-chennai">
+              <div class="route-icon">
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
+              </div>
+              <div class="route-info">Pune <span>→</span> Tamil Nadu</div>
+            </div>
+            <div class="route-card" data-route="tamilnadu-maharashtra">
+              <div class="route-icon">
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
+              </div>
+              <div class="route-info">Tamil Nadu <span>→</span> Maharashtra</div>
+            </div>
+          </div>
         </div>
       </div>
     </section>
@@ -581,7 +836,9 @@
         <div class="faq-item">
           <button class="faq-question">
             <span>How do you guarantee the safety of my cargo during long-haul transit?</span>
-            <span class="faq-icon">▼</span>
+            <span class="faq-icon">
+              <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="6 9 12 15 18 9"/></svg>
+            </span>
           </button>
           <div class="faq-answer">
             <div class="faq-answer-inner">
@@ -595,7 +852,9 @@
         <div class="faq-item">
           <button class="faq-question">
             <span>What regions does Chitkote Logistics operate in?</span>
-            <span class="faq-icon">▼</span>
+            <span class="faq-icon">
+              <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="6 9 12 15 18 9"/></svg>
+            </span>
           </button>
           <div class="faq-answer">
             <div class="faq-answer-inner">
@@ -609,7 +868,9 @@
         <div class="faq-item">
           <button class="faq-question">
             <span>What type of cargo is suitable for 32 ft container trucks?</span>
-            <span class="faq-icon">▼</span>
+            <span class="faq-icon">
+              <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="6 9 12 15 18 9"/></svg>
+            </span>
           </button>
           <div class="faq-answer">
             <div class="faq-answer-inner">
@@ -622,7 +883,9 @@
         <div class="faq-item">
           <button class="faq-question">
             <span>Can I track my shipment in real-time?</span>
-            <span class="faq-icon">▼</span>
+            <span class="faq-icon">
+              <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="6 9 12 15 18 9"/></svg>
+            </span>
           </button>
           <div class="faq-answer">
             <div class="faq-answer-inner">
@@ -668,7 +931,9 @@
 
           <div class="contact-details-list">
             <div class="contact-item">
-              <div class="contact-item-icon">📞</div>
+              <div class="contact-item-icon">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
+              </div>
               <div class="contact-item-content">
                 <h4>Call / WhatsApp</h4>
                 <a href="tel:+919390003955">+91 93900 03955</a>
@@ -676,7 +941,9 @@
             </div>
 
             <div class="contact-item">
-              <div class="contact-item-icon">✉️</div>
+              <div class="contact-item-icon">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+              </div>
               <div class="contact-item-content">
                 <h4>Email ID</h4>
                 <a href="mailto:chitkote.logistics@gmail.com">chitkote.logistics@gmail.com</a>
@@ -684,7 +951,9 @@
             </div>
 
             <div class="contact-item">
-              <div class="contact-item-icon">📍</div>
+              <div class="contact-item-icon">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
+              </div>
               <div class="contact-item-content">
                 <h4>Office Location</h4>
                 <p>#8-1-206/87/1, Pragati Colony,<br>Mailardevpally, Hyderabad – 500005</p>
@@ -793,8 +1062,12 @@
   <footer class="site-footer">
     <div class="footer-top">
       <div class="footer-brand">
-        <h4>Chitkote Logistics</h4>
+        <h4>
+          <img class="brand-logo-footer" src="Images/newlogo_processed.png" alt="Chitkote Logistics Logo" width="54" height="35" style="margin-right:8px; vertical-align:middle; display:inline-block;">
+          <span style="vertical-align:middle;">Chitkote Logistics</span>
+        </h4>
         <p>High quality, secure freight and container logistics throughout South & West India corridors.</p>
+        <p style="font-size:0.75rem; color:rgba(255,255,255,0.4); line-height:1.4; margin-top:8px;">✓ GST Registered Carrier<br>✓ IBA Approved Transport Operator</p>
       </div>
 
       <div class="footer-links">
@@ -821,9 +1094,18 @@
 
       <div class="footer-contact">
         <h5>Get In Touch</h5>
-        <p>📞 <a href="tel:+919390003955">+91 93900 03955</a></p>
-        <p>✉️ <a href="mailto:chitkote.logistics@gmail.com">chitkote.logistics@gmail.com</a></p>
-        <p>📍 Hyderabad, India</p>
+        <p>
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" style="color:var(--accent); margin-right:4px; flex-shrink:0; display:inline-block; vertical-align:middle;"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
+          <a href="tel:+919390003955" style="vertical-align:middle;">+91 93900 03955</a>
+        </p>
+        <p>
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" style="color:var(--accent); margin-right:4px; flex-shrink:0; display:inline-block; vertical-align:middle;"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+          <a href="mailto:chitkote.logistics@gmail.com" style="vertical-align:middle;">chitkote.logistics@gmail.com</a>
+        </p>
+        <p>
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" style="color:var(--accent); margin-right:4px; flex-shrink:0; display:inline-block; vertical-align:middle;"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
+          <span style="vertical-align:middle;">Hyderabad, India</span>
+        </p>
       </div>
     </div>
 
@@ -835,7 +1117,7 @@
 
   <!-- WhatsApp Floating Action -->
   <a class="whatsapp" href="https://wa.me/919390003955" target="_blank" aria-label="Chat on WhatsApp">
-    💬
+    <svg width="28" height="28" fill="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M.057 24l1.687-6.163c-1.041-1.804-1.588-3.849-1.587-5.946C.06 5.348 5.397.01 12.008.01c3.202.001 6.212 1.246 8.477 3.514 2.266 2.268 3.507 5.28 3.505 8.484-.004 6.657-5.34 11.997-11.953 11.997-2.005-.001-3.973-.502-5.724-1.457L0 24zm6.59-4.846c1.6.95 3.188 1.449 4.725 1.45 5.515 0 9.992-4.48 9.995-10 .002-2.674-1.033-5.188-2.918-7.077C16.562 1.637 14.053.604 11.378.604 5.86 .604 1.382 5.083 1.38 10.6c-.001 1.743.46 3.447 1.332 4.962l-.995 3.63 3.731-.977c1.472.803 2.923 1.218 4.542 1.218zM17.435 14.18c-.313-.156-1.854-.915-2.141-1.018-.287-.105-.497-.156-.707.156-.21.312-.813 1.018-.996 1.226-.183.208-.366.234-.68.078-1.54-.78-2.698-1.4-3.774-3.26-.28-.48.28-.446.804-1.493.087-.174.043-.327-.02-.456-.065-.13-.574-1.382-.787-1.895-.207-.5-.453-.433-.626-.44-.162-.007-.348-.008-.535-.008-.186 0-.49.07-.747.348-.256.278-.979.957-.979 2.333 0 1.376.999 2.705 1.139 2.896.14.19 1.966 3.003 4.763 4.207.665.286 1.184.457 1.587.585.668.213 1.278.183 1.758.11.536-.08 1.854-.758 2.115-1.453.26-.695.26-1.293.182-1.417-.078-.124-.286-.202-.599-.358z"/></svg>
     <div class="whatsapp-tooltip">Chat with our Cargo Coordinator!</div>
   </a>
 
