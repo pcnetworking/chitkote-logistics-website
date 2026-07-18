@@ -41,6 +41,10 @@
         <a href="#fleet">Fleet</a>
         <a href="#faq">FAQ</a>
         <a href="#contact">Contact</a>
+        <a href="#careers">Careers</a>
+        <a href="#onboarding" class="nav-highlight">Truck Onboarding</a>
+        <a href="#owner-dashboard">Owner Portal</a>
+        <a href="admin.html">Admin Desk</a>
       </nav>
       <a class="header-cta" href="tel:+919390003955">
         <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" style="margin-right:6px;"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
@@ -1055,7 +1059,704 @@
           </form>
         </div>
       </div>
+    <!-- ==================================================================== -->
+    <!-- CAREERS & JOB OPENINGS SECTION                                       -->
+    <!-- ==================================================================== -->
+    <section id="careers" class="section section-careers" style="background:#f8fafc; padding: 60px 0;">
+      <div class="container" style="max-width: 1200px; margin: 0 auto; padding: 0 20px;">
+        <div class="section-heading" style="text-align: center; margin-bottom: 40px;">
+          <p class="eyebrow">Join Chitkote Logistics</p>
+          <h2>Current Job Openings & Opportunities</h2>
+          <p>Build your career with South India's premier transport network. We are hiring operational talents, fleet managers, and sales professionals.</p>
+        </div>
+
+        <div id="publicCareersGrid" style="display: grid; grid-template-columns: repeat(auto-fill, minmax(320px, 1fr)); gap: 24px;">
+          <!-- Dynamically rendered via CareersManager in onboarding.js -->
+        </div>
+      </div>
     </section>
+
+    <!-- ==================================================================== -->
+    <!-- TRUCK OWNER ONBOARDING MODULE SECTION                                -->
+    <!-- ==================================================================== -->
+    <section id="onboarding" class="section section-onboarding" style="display: none;">
+      <div class="section-heading" style="position: relative;">
+        <button type="button" class="btn-close-onboarding" onclick="document.getElementById('onboarding').style.display='none';" style="position: absolute; right: 20px; top: 0; background: #fee2e2; color: #991b1b; border: 1px solid #fca5a5; padding: 6px 16px; border-radius: 20px; font-weight: 600; font-size: 0.85rem; cursor: pointer; transition: all 0.2s;">
+          ✕ Close Onboarding Form
+        </button>
+        <p class="eyebrow">Partner Carrier Registration</p>
+        <h2>Truck Owner Verification & Fleet Onboarding</h2>
+        <p>Register your trucks, submit compliance documents online, and access regular industrial contract loads across South & West India.</p>
+      </div>
+
+      <div class="onboarding-wrapper">
+        <div class="onboarding-card" id="onboardingCard">
+          <!-- 6-Step Visual Progress Stepper -->
+          <div class="ob-stepper-header">
+            <div class="ob-progress-bar-container">
+              <div id="obProgressBar" class="ob-progress-bar"></div>
+            </div>
+            <div class="ob-stepper-nodes">
+              <div class="ob-step-node active" id="obNode1"><span>1</span><label>Personal</label></div>
+              <div class="ob-step-node" id="obNode2"><span>2</span><label>Company</label></div>
+              <div class="ob-step-node" id="obNode3"><span>3</span><label>Vehicles</label></div>
+              <div class="ob-step-node" id="obNode4"><span>4</span><label>Documents</label></div>
+              <div class="ob-step-node" id="obNode5"><span>5</span><label>Bank</label></div>
+              <div class="ob-step-node" id="obNode6"><span>6</span><label>Declaration</label></div>
+            </div>
+          </div>
+
+          <form id="onboardingForm" novalidate>
+            <!-- Step 1: Personal Details -->
+            <div class="ob-form-step active" id="obStep1">
+              <div class="step-title-box">
+                <h3>Step 1: Personal Details & Identity Verification</h3>
+                <p>Provide primary owner contact and government tax/identity card credentials.</p>
+              </div>
+              <div class="form-grid">
+                <label>
+                  <span>Full Name (As per PAN)*</span>
+                  <input type="text" id="obFullName" placeholder="e.g. Rajesh Sharma" required>
+                </label>
+                <label>
+                  <span>Mobile Number (Primary)*</span>
+                  <div class="input-with-action">
+                    <input type="tel" id="obMobile" maxlength="10" placeholder="10 Digit Mobile Number" required>
+                    <button type="button" class="btn-input-action" id="btnSendOtp">Verify OTP</button>
+                  </div>
+                  <span id="mobileVerifyBadge" class="badge-mini badge-pending" style="margin-top:4px; display:inline-block;">Pending Verification</span>
+                </label>
+                <label>
+                  <span>Alternate Mobile Number</span>
+                  <input type="tel" id="obAltMobile" maxlength="10" placeholder="e.g. 9123456789">
+                </label>
+                <label>
+                  <span>Email Address*</span>
+                  <input type="email" id="obEmail" placeholder="e.g. rajesh@sharmatransport.com" required>
+                </label>
+                <label>
+                  <span>PAN Number (Owner / Firm)*</span>
+                  <input type="text" id="obPan" maxlength="10" placeholder="ABCDE1234F" style="text-transform:uppercase;" required>
+                </label>
+                <label>
+                  <span>Aadhaar Card Number (Optional)</span>
+                  <input type="text" id="obAadhaar" maxlength="12" placeholder="12 Digit Aadhaar Number">
+                </label>
+                <label class="form-group-full">
+                  <span>Residential Address*</span>
+                  <input type="text" id="obAddress" placeholder="Flat / Door No., Street, Area Landmark" required>
+                </label>
+                <label>
+                  <span>City Hub*</span>
+                  <input type="text" id="obCity" placeholder="e.g. Hyderabad" required>
+                </label>
+                <label>
+                  <span>State*</span>
+                  <select id="obState" required>
+                    <option value="">Select State</option>
+                    <option value="Telangana">Telangana</option>
+                    <option value="Tamil Nadu">Tamil Nadu</option>
+                    <option value="Maharashtra">Maharashtra</option>
+                    <option value="Andhra Pradesh">Andhra Pradesh</option>
+                    <option value="Karnataka">Karnataka</option>
+                    <option value="Gujarat">Gujarat</option>
+                    <option value="Other">Other State</option>
+                  </select>
+                </label>
+                <label>
+                  <span>Pincode*</span>
+                  <input type="text" id="obPincode" maxlength="6" placeholder="e.g. 500032" required>
+                </label>
+              </div>
+            </div>
+
+            <!-- Step 2: Company Details -->
+            <div class="ob-form-step" id="obStep2">
+              <div class="step-title-box">
+                <h3>Step 2: Company & Business Structure</h3>
+                <p>Enter business constitution type, registered company name, and GST registration.</p>
+              </div>
+              <div class="form-grid">
+                <label>
+                  <span>Business Entity Structure*</span>
+                  <select id="obEntityType" required>
+                    <option value="Individual">Individual Truck Owner</option>
+                    <option value="Proprietorship">Sole Proprietorship</option>
+                    <option value="Partnership">Partnership Firm</option>
+                    <option value="Pvt Ltd">Private Limited Company (Pvt. Ltd.)</option>
+                  </select>
+                </label>
+                <label>
+                  <span>Registered Company / Firm Name*</span>
+                  <input type="text" id="obCompanyName" placeholder="e.g. Sharma Transport Carriers" required>
+                </label>
+                <label class="form-group-full">
+                  <span>GSTIN Number (Optional)</span>
+                  <input type="text" id="obGstNumber" maxlength="15" placeholder="e.g. 36ABCDE1234F1Z5" style="text-transform:uppercase;">
+                </label>
+                <label class="form-group-full">
+                  <span>Official Business Address*</span>
+                  <textarea id="obBusinessAddress" rows="2" placeholder="Registered office address for invoice and contract matching..." required></textarea>
+                </label>
+              </div>
+            </div>
+
+            <!-- Step 3: Vehicle Details -->
+            <div class="ob-form-step" id="obStep3">
+              <div class="step-title-box">
+                <h3>Step 3: Fleet & Vehicle Specifications</h3>
+                <p>Register one or more trucks. Click "Add Another Vehicle" for multi-truck fleet onboardings.</p>
+              </div>
+
+              <div id="vehiclesContainer">
+                <!-- Dynamic Vehicle Rows rendered via onboarding.js -->
+              </div>
+
+              <div class="add-veh-bar">
+                <button type="button" class="btn-add-veh" id="btnAddVehicle">
+                  <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="12" y1="5" x2="12" y2="19"></line><line x1="5" y1="12" x2="19" y2="12"></line></svg>
+                  Add Another Vehicle
+                </button>
+              </div>
+            </div>
+
+            <!-- Step 4: Document Upload -->
+            <div class="ob-form-step" id="obStep4">
+              <div class="step-title-box">
+                <h3>Step 4: Compliance Document Upload</h3>
+                <p>Upload clear scanned copies or photos (PDF, JPG, JPEG, PNG • Max File Size: 10 MB per file).</p>
+              </div>
+
+              <div class="docs-section-group">
+                <h4 class="doc-heading-label mandatory-label">Mandatory Required Documents*</h4>
+                <div class="docs-upload-grid">
+                  <!-- RC Book -->
+                  <div class="upload-card">
+                    <label class="upload-label">RC Book (Front & Back)*</label>
+                    <div class="upload-dropzone" data-doc="rc_book">
+                      <input type="file" accept=".pdf,.jpg,.jpeg,.png">
+                      <div class="dz-icon"><svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline><line x1="16" y1="13" x2="8" y2="13"></line><line x1="16" y1="17" x2="8" y2="17"></line><polyline points="10 9 9 9 8 9"></polyline></svg></div>
+                      <div class="dz-text">Drag & drop RC copy here or <span class="dz-browse">Browse</span></div>
+                      <small class="dz-help">Formats: PDF, PNG, JPG (Max 10MB)</small>
+                      <div class="dz-progress"><div class="dz-progress-bar"></div></div>
+                      <div class="dz-status"></div>
+                    </div>
+                  </div>
+
+                  <!-- PAN Card -->
+                  <div class="upload-card">
+                    <label class="upload-label">PAN Card Copy*</label>
+                    <div class="upload-dropzone" data-doc="pan_card">
+                      <input type="file" accept=".pdf,.jpg,.jpeg,.png">
+                      <div class="dz-icon"><svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="16" rx="2"></rect><line x1="7" y1="8" x2="17" y2="8"></line><line x1="7" y1="12" x2="13" y2="12"></line></svg></div>
+                      <div class="dz-text">Drag & drop PAN Card or <span class="dz-browse">Browse</span></div>
+                      <small class="dz-help">Formats: PDF, PNG, JPG (Max 10MB)</small>
+                      <div class="dz-progress"><div class="dz-progress-bar"></div></div>
+                      <div class="dz-status"></div>
+                    </div>
+                  </div>
+
+                  <!-- Vehicle Insurance -->
+                  <div class="upload-card">
+                    <label class="upload-label">Vehicle Insurance Policy*</label>
+                    <div class="upload-dropzone" data-doc="vehicle_insurance">
+                      <input type="file" accept=".pdf,.jpg,.jpeg,.png">
+                      <div class="dz-icon"><svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path></svg></div>
+                      <div class="dz-text">Drag & drop Policy doc or <span class="dz-browse">Browse</span></div>
+                      <small class="dz-help">Formats: PDF, PNG, JPG (Max 10MB)</small>
+                      <div class="dz-progress"><div class="dz-progress-bar"></div></div>
+                      <div class="dz-status"></div>
+                    </div>
+                  </div>
+
+                  <!-- Owner Photo -->
+                  <div class="upload-card">
+                    <label class="upload-label">Owner Passport Photo*</label>
+                    <div class="upload-dropzone" data-doc="owner_photo">
+                      <input type="file" accept=".jpg,.jpeg,.png">
+                      <div class="dz-icon"><svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path><circle cx="12" cy="7" r="4"></circle></svg></div>
+                      <div class="dz-text">Drag & drop Photo or <span class="dz-browse">Browse</span></div>
+                      <small class="dz-help">Formats: PNG, JPG (Max 10MB)</small>
+                      <div class="dz-progress"><div class="dz-progress-bar"></div></div>
+                      <div class="dz-status"></div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <div class="docs-section-group" style="margin-top:20px;">
+                <h4 class="doc-heading-label optional-label">Optional Supporting Documents</h4>
+                <div class="docs-upload-grid">
+                  <!-- Aadhaar Card -->
+                  <div class="upload-card">
+                    <label class="upload-label">Aadhaar Card</label>
+                    <div class="upload-dropzone" data-doc="aadhaar_card">
+                      <input type="file" accept=".pdf,.jpg,.jpeg,.png">
+                      <div class="dz-text">Upload Aadhaar or <span class="dz-browse">Browse</span></div>
+                      <div class="dz-progress"><div class="dz-progress-bar"></div></div>
+                      <div class="dz-status"></div>
+                    </div>
+                  </div>
+
+                  <!-- GST Certificate -->
+                  <div class="upload-card">
+                    <label class="upload-label">GST Certificate</label>
+                    <div class="upload-dropzone" data-doc="gst_certificate">
+                      <input type="file" accept=".pdf,.jpg,.jpeg,.png">
+                      <div class="dz-text">Upload GST Cert or <span class="dz-browse">Browse</span></div>
+                      <div class="dz-progress"><div class="dz-progress-bar"></div></div>
+                      <div class="dz-status"></div>
+                    </div>
+                  </div>
+
+                  <!-- Driving License -->
+                  <div class="upload-card">
+                    <label class="upload-label">Driving License</label>
+                    <div class="upload-dropzone" data-doc="driving_license">
+                      <input type="file" accept=".pdf,.jpg,.jpeg,.png">
+                      <div class="dz-text">Upload Driver DL or <span class="dz-browse">Browse</span></div>
+                      <div class="dz-progress"><div class="dz-progress-bar"></div></div>
+                      <div class="dz-status"></div>
+                    </div>
+                  </div>
+
+                  <!-- Cancelled Cheque -->
+                  <div class="upload-card">
+                    <label class="upload-label">Cancelled Cheque / Passbook</label>
+                    <div class="upload-dropzone" data-doc="bank_passbook">
+                      <input type="file" accept=".pdf,.jpg,.jpeg,.png">
+                      <div class="dz-text">Upload Cheque / Passbook or <span class="dz-browse">Browse</span></div>
+                      <div class="dz-progress"><div class="dz-progress-bar"></div></div>
+                      <div class="dz-status"></div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Step 5: Bank Details -->
+            <div class="ob-form-step" id="obStep5">
+              <div class="step-title-box">
+                <h3>Step 5: Bank Account & Payment Settlement Details</h3>
+                <p>Direct bank credit details for freight billing and advance freight payments.</p>
+              </div>
+              <div class="form-grid">
+                <label>
+                  <span>Account Holder Name*</span>
+                  <input type="text" id="obAccountHolder" placeholder="Must match PAN / Company Name" required>
+                </label>
+                <label>
+                  <span>Bank Name*</span>
+                  <input type="text" id="obBankName" placeholder="e.g. HDFC Bank, SBI, ICICI" required>
+                </label>
+                <label>
+                  <span>Bank Account Number*</span>
+                  <input type="text" id="obAccountNumber" placeholder="e.g. 50100234567890" required>
+                </label>
+                <label>
+                  <span>IFSC Code*</span>
+                  <input type="text" id="obIfscCode" maxlength="11" placeholder="e.g. HDFC0001234" style="text-transform:uppercase;" required>
+                </label>
+                <label class="form-group-full">
+                  <span>UPI ID / VPA (Optional)</span>
+                  <input type="text" id="obUpiId" placeholder="e.g. sharmatransport@hdfc">
+                </label>
+              </div>
+            </div>
+
+            <!-- Step 6: Declaration -->
+            <div class="ob-form-step" id="obStep6">
+              <div class="step-title-box">
+                <h3>Step 6: Compliance Declaration & Terms</h3>
+                <p>Final review and legal declaration statement before submitting application.</p>
+              </div>
+
+              <div class="declaration-box">
+                <div class="declaration-content">
+                  <h4>Carrier Registration Declaration Statement</h4>
+                  <p>1. I hereby declare that all particulars, identity numbers, vehicle details, and document attachments submitted in this application are true, accurate, and valid under Indian Motor Vehicles Act.</p>
+                  <p>2. I authorize Chitkote Logistics India Pvt. Ltd. to verify the submitted RC books, PAN cards, and bank account credentials with government registries and banking partners.</p>
+                  <p>3. I agree to operate vehicles equipped with active GPS tracking and valid insurance policies during transport contracts.</p>
+                </div>
+                <label class="checkbox-label">
+                  <input type="checkbox" id="obDeclaration" required>
+                  <span>I hereby declare that all information and uploaded documents are true and valid.*</span>
+                </label>
+              </div>
+            </div>
+
+            <!-- Form Wizard Navigation Footer -->
+            <div class="ob-footer-actions">
+              <button type="button" class="btn-ob-secondary" id="onboardingPrev" style="display:none;">← Previous Step</button>
+              <button type="button" class="btn-ob-primary" id="onboardingNext">Next Step →</button>
+              <button type="submit" class="btn-ob-submit" id="onboardingSubmit" style="display:none;">Submit Application for Verification</button>
+            </div>
+          </form>
+        </div>
+
+        <!-- Onboarding Success Screen -->
+        <div class="onboarding-card success-card" id="onboardingSuccessCard" style="display:none;">
+          <div class="success-icon-box">
+            <svg width="64" height="64" viewBox="0 0 24 24" fill="none" stroke="#22C55E" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path><polyline points="22 4 12 14.01 9 11.01"></polyline></svg>
+          </div>
+          <h2>Registration Submitted Successfully!</h2>
+          <p class="card-subtitle">Thank you, <strong id="displayOwnerName">Truck Owner</strong>. Your onboarding application has been logged into Chitkote Logistics Verification Desk.</p>
+
+          <div class="id-badge-card">
+            <span>Your Generated Truck Owner ID:</span>
+            <strong id="displayOwnerId">CKL-TRO-000000</strong>
+          </div>
+
+          <div class="success-next-steps">
+            <h4>What Happens Next?</h4>
+            <ul>
+              <li>✓ Our operations desk will review your RC Book and Insurance within 24 business hours.</li>
+              <li>✓ SMS & WhatsApp notification updates will be dispatched to your registered mobile.</li>
+              <li>✓ You can log into your <strong>Owner Portal</strong> anytime to track review status or upload additional documents.</li>
+            </ul>
+          </div>
+
+          <div class="success-actions">
+            <a href="#owner-dashboard" class="btn btn-primary" onclick="document.getElementById('onboardingSuccessCard').style.display='none'; document.getElementById('onboardingCard').style.display='block';">Go to Owner Portal Login</a>
+            <a href="#home" class="btn btn-secondary">Return to Home</a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ==================================================================== -->
+    <!-- TRUCK OWNER SELF-SERVICE PORTAL SECTION                              -->
+    <!-- ==================================================================== -->
+    <section id="owner-dashboard" class="section section-owner-portal">
+      <div class="section-heading">
+        <p class="eyebrow">Carrier Self-Service Desk</p>
+        <h2>Truck Owner Portal & Status Tracking</h2>
+        <p>Log in using your registered mobile number to track approval status, inspect admin feedback, and manage your registered trucks.</p>
+      </div>
+
+      <div class="portal-container">
+        <!-- Mobile Login Card -->
+        <div class="portal-card" id="ownerLoginSection">
+          <h3>Log In to Carrier Portal</h3>
+          <p class="card-subtitle">Enter your 10-digit registered mobile number to access your onboarding pass.</p>
+
+          <div class="login-input-group">
+            <label>
+              <span>Registered Mobile Number</span>
+              <input type="tel" id="ownerLoginMobile" maxlength="10" placeholder="e.g. 9876543210">
+            </label>
+            <button type="button" class="btn btn-primary btn-block" id="btnOwnerLogin">
+              Verify & View Dashboard
+            </button>
+          </div>
+        </div>
+
+        <!-- Dashboard Content View -->
+        <div class="portal-card owner-dash-content" id="ownerDashboardContent" style="display:none;">
+          <div class="dash-top-bar">
+            <div class="user-welcome">
+              <h3>Welcome, <span id="dashOwnerName">Carrier Partner</span></h3>
+              <p><strong id="dashCompanyName">Company Name</strong> • Owner ID: <span id="dashOwnerId">CKL-TRO-000001</span></p>
+            </div>
+            <div class="dash-top-right">
+              <span id="dashStatusBadge" class="dash-status-pill status-approved">Approved</span>
+              <button type="button" class="btn-logout" id="btnOwnerLogout">Logout</button>
+            </div>
+          </div>
+
+          <div class="dash-grid-2">
+            <!-- Left Column: Admin Remarks & Status -->
+            <div class="dash-card-box">
+              <h4>Verification Status & Admin Remarks</h4>
+              <div id="dashRemarksList" class="remarks-scroll-box">
+                <!-- Rendered dynamically -->
+              </div>
+            </div>
+
+            <!-- Right Column: Registered Fleet -->
+            <div class="dash-card-box">
+              <h4>Registered Trucks & Capacity</h4>
+              <div id="dashVehiclesList" class="vehicles-list-box">
+                <!-- Rendered dynamically -->
+              </div>
+            </div>
+          </div>
+
+          <div class="dash-footer-bar">
+            <button type="button" class="btn btn-secondary" id="btnDownloadCert" style="display:none;">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="margin-right:6px;"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path><polyline points="7 10 12 15 17 10"></polyline><line x1="12" y1="15" x2="12" y2="3"></line></svg>
+              Download Verified Carrier Certificate
+            </button>
+      <!-- ==================================================================== -->
+    <!-- ADMIN VERIFICATION PORTAL SECTION                                    -->
+    <!-- ==================================================================== -->
+    <section id="admin-onboarding-portal" class="section section-admin-portal">
+      <div class="section-heading">
+        <p class="eyebrow">Internal Verification Desk</p>
+        <h2>Admin Management Portal & Document Audit</h2>
+        <p>Audit truck owner registrations, review RC & insurance files, add verification remarks, and approve carrier access.</p>
+      </div>
+
+      <!-- ADMIN LOGIN VIEW (Displayed when Admin is NOT logged in) -->
+      <div class="portal-container" id="adminLoginSection">
+        <div class="portal-card" style="max-width: 480px; margin: 0 auto; padding: 32px; border-radius: 12px; box-shadow: 0 10px 30px rgba(0,0,0,0.08); background: #ffffff;">
+          <div style="text-align: center; margin-bottom: 24px;">
+            <div style="width: 56px; height: 56px; background: rgba(22, 101, 192, 0.1); color: #166534; border-radius: 50%; display: inline-flex; align-items: center; justify-content: center; margin-bottom: 12px;">
+              <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#166534" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path></svg>
+            </div>
+            <h3 style="margin: 0; color: #1e293b; font-size: 1.5rem;">Admin Security Login</h3>
+            <p class="card-subtitle" style="margin-top: 6px; color: #64748b; font-size: 0.93rem;">Enter operational desk credentials to access carrier onboarding and document audit logs.</p>
+          </div>
+
+          <form id="adminLoginForm" onsubmit="return false;">
+            <div class="login-input-group" style="display: flex; flex-direction: column; gap: 16px;">
+              <label style="display: flex; flex-direction: column; text-align: left; font-weight: 600; color: #334155; font-size: 0.9rem;">
+                <span>Admin Username</span>
+                <input type="text" id="adminLoginUser" placeholder="e.g. admin" required style="margin-top: 6px; padding: 12px 14px; border: 1px solid #cbd5e1; border-radius: 8px; font-size: 1rem;">
+              </label>
+              <label style="display: flex; flex-direction: column; text-align: left; font-weight: 600; color: #334155; font-size: 0.9rem;">
+                <span>Admin Password</span>
+                <input type="password" id="adminLoginPass" placeholder="••••••••" required style="margin-top: 6px; padding: 12px 14px; border: 1px solid #cbd5e1; border-radius: 8px; font-size: 1rem;">
+              </label>
+              <div id="adminLoginError" style="display: none; color: #dc2626; background: #fef2f2; border: 1px solid #fecaca; padding: 10px; border-radius: 6px; font-size: 0.875rem; text-align: center;"></div>
+              <button type="button" class="btn btn-primary btn-block" id="btnAdminLogin" style="padding: 12px; margin-top: 8px; font-size: 1rem; cursor: pointer;">
+                Authenticate & Unlock Admin Desk
+              </button>
+            </div>
+          </form>
+
+          <div style="margin-top: 20px; text-align: center; font-size: 0.85rem; color: #64748b; background: #f8fafc; padding: 12px; border-radius: 8px; border: 1px dashed #cbd5e1;">
+            🔒 Restricted access for Chitkote Logistics Verification Team.
+          </div>
+        </div>
+      </div>
+
+      <!-- ADMIN DASHBOARD CONTENT VIEW (Displayed ONLY when Admin IS logged in) -->
+      <div class="admin-dashboard-wrapper" id="adminDashboardContent" style="display: none;">
+        <!-- Admin Session Active Bar -->
+        <div style="display: flex; justify-content: space-between; align-items: center; background: #ffffff; padding: 14px 20px; border-radius: 10px; box-shadow: 0 2px 8px rgba(0,0,0,0.05); margin-bottom: 24px; border: 1px solid #e2e8f0;">
+          <div style="display: flex; align-items: center; gap: 10px;">
+            <span style="display: inline-block; width: 10px; height: 10px; background: #16a34a; border-radius: 50%;"></span>
+            <span style="font-weight: 600; color: #1e293b; font-size: 0.95rem;">Authenticated Session: Operation Desk Admin</span>
+          </div>
+          <button type="button" class="btn-logout" id="btnAdminLogout" style="padding: 8px 16px; background: #fee2e2; color: #991b1b; border: 1px solid #fca5a5; border-radius: 6px; font-size: 0.875rem; font-weight: 600; cursor: pointer; transition: all 0.2s;">
+            Log Out Admin
+          </button>
+        </div>
+
+        <!-- 5 Key Performance Metrics Cards -->
+        <div class="admin-stats-grid">
+          <div class="stat-card">
+            <div class="stat-icon stat-icon-blue"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path><circle cx="9" cy="7" r="4"></circle><path d="M23 21v-2a4 4 0 0 3-3.87"></path><path d="M16 3.13a4 4 0 0 1 0 7.75"></path></svg></div>
+            <div class="stat-info">
+              <strong id="statTotalReg">0</strong>
+              <p>Total Registrations</p>
+            </div>
+          </div>
+
+          <div class="stat-card">
+            <div class="stat-icon stat-icon-orange"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline></svg></div>
+            <div class="stat-info">
+              <strong id="statPending">0</strong>
+              <p>Pending Review</p>
+            </div>
+          </div>
+
+          <div class="stat-card">
+            <div class="stat-icon stat-icon-green"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path><polyline points="22 4 12 14.01 9 11.01"></polyline></svg></div>
+            <div class="stat-info">
+              <strong id="statApproved">0</strong>
+              <p>Approved Carriers</p>
+            </div>
+          </div>
+
+          <div class="stat-card">
+            <div class="stat-icon stat-icon-yellow"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline></svg></div>
+            <div class="stat-info">
+              <strong id="statDocsPending">0</strong>
+              <p>Docs Pending</p>
+            </div>
+          </div>
+
+          <div class="stat-card">
+            <div class="stat-icon stat-icon-red"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"></circle><line x1="15" y1="9" x2="9" y2="15"></line><line x1="9" y1="9" x2="15" y2="15"></line></svg></div>
+            <div class="stat-info">
+              <strong id="statRejected">0</strong>
+              <p>Rejected</p>
+            </div>
+          </div>
+        </div>
+
+        <!-- Filter & Search Controls -->
+        <div class="admin-controls-bar">
+          <div class="search-box">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>
+            <input type="text" id="adminSearchInput" placeholder="Search by Vehicle No (e.g. TS08), Mobile, PAN, or Owner ID...">
+          </div>
+
+          <div class="filter-controls">
+            <select id="adminStatusFilter">
+              <option value="All">All Statuses</option>
+              <option value="Submitted">Submitted</option>
+              <option value="Under Review">Under Review</option>
+              <option value="Documents Pending">Documents Pending</option>
+              <option value="Approved">Approved</option>
+              <option value="Rejected">Rejected</option>
+            </select>
+
+            <button type="button" class="btn-excel-export" id="btnExportExcel">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="margin-right:6px;"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path><polyline points="7 10 12 15 17 10"></polyline><line x1="12" y1="15" x2="12" y2="3"></line></svg>
+              Export Approved to Excel (CSV)
+            </button>
+          </div>
+        </div>
+
+        <!-- Applications Data Table -->
+        <div class="admin-table-card">
+          <div class="table-responsive">
+            <table class="admin-table">
+              <thead>
+                <tr>
+                  <th>Owner ID</th>
+                  <th>Owner & Company</th>
+                  <th>Contact & PAN</th>
+                  <th>Registered Vehicles</th>
+                  <th>Submitted Date</th>
+                  <th>Current Status</th>
+                  <th>Action</th>
+                </tr>
+              </thead>
+              <tbody id="adminTableBody">
+                <!-- Rendered via onboarding.js -->
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ADMIN APPLICATION REVIEW MODAL -->
+    <div class="custom-modal" id="adminReviewModal" style="display:none;">
+      <div class="modal-content-box">
+        <div class="modal-header">
+          <h3>Carrier Audit & Document Verification Desk</h3>
+          <button type="button" class="modal-close-btn" id="btnCloseAdminModal">&times;</button>
+        </div>
+        <div class="modal-body">
+          <div class="review-meta-grid">
+            <div><span>Owner ID:</span> <strong id="modalReviewCode">CKL-TRO-000001</strong></div>
+            <div><span>Full Name:</span> <strong id="modalReviewOwnerName">Rajesh Sharma</strong></div>
+            <div><span>Company:</span> <strong id="modalReviewCompany">Sharma Transport</strong></div>
+            <div><span>Mobile:</span> <strong id="modalReviewMobile">+91 98765 43210</strong></div>
+            <div><span>PAN Number:</span> <strong id="modalReviewPan">ABCDE1234F</strong></div>
+            <div><span>GST Number:</span> <strong id="modalReviewGst">N/A</strong></div>
+          </div>
+
+          <div class="review-section">
+            <h4>Settlement Bank Account</h4>
+            <p id="modalReviewBank" class="text-highlight">HDFC Bank - Acc: 50100234567890 (IFSC: HDFC0001234)</p>
+          </div>
+
+          <div class="review-section">
+            <h4>Registered Vehicles</h4>
+            <div id="modalReviewVehicles"></div>
+          </div>
+
+          <div class="review-section">
+            <h4>Uploaded Verification Documents</h4>
+            <div id="modalReviewDocs" class="review-docs-list"></div>
+          </div>
+
+          <div class="review-section">
+            <h4>Admin Verification Remarks</h4>
+            <textarea id="modalAdminRemarksText" rows="3" placeholder="Enter review feedback, missing document notes, or approval remarks..."></textarea>
+            <div id="modalReviewRemarksHistory" class="remarks-history-box" style="margin-top:10px;"></div>
+          </div>
+        </div>
+
+        <div class="modal-footer">
+          <button type="button" class="btn-status-act btn-status-reject" id="btnAdminReject">Reject Application</button>
+          <button type="button" class="btn-status-act btn-status-pending" id="btnAdminReqDocs">Request Docs / Info</button>
+          <button type="button" class="btn-status-act btn-status-approve" id="btnAdminApprove">Approve Carrier Pass</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- OTP VERIFICATION MODAL -->
+    <div class="custom-modal" id="otpVerificationModal" style="display:none;">
+      <div class="modal-content-box modal-sm">
+        <div class="modal-header">
+          <h3>Mobile OTP Verification</h3>
+          <button type="button" class="modal-close-btn" id="btnCloseOtpModal">&times;</button>
+        </div>
+        <div class="modal-body text-center py-3">
+          <p>We have dispatched a 4-digit verification code to <strong id="otpPhoneTarget">+91 9876543210</strong></p>
+          <div class="otp-inputs-row" style="display:flex; justify-content:center; gap:10px; margin:20px 0;">
+            <input type="text" maxlength="1" class="otp-digit-input" value="4">
+            <input type="text" maxlength="1" class="otp-digit-input" value="9">
+            <input type="text" maxlength="1" class="otp-digit-input" value="2">
+            <input type="text" maxlength="1" class="otp-digit-input" value="0">
+          </div>
+          <small class="text-muted">Demo OTP Code: <strong>4920</strong></small>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-primary btn-block" id="btnConfirmOtp">Verify OTP Code</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- PUBLIC JOB APPLICATION MODAL -->
+    <div class="custom-modal" id="jobApplyModal" style="display:none; position: fixed; top: 0; left: 0; right: 0; bottom: 0; background: rgba(15, 23, 42, 0.6); align-items: center; justify-content: center; z-index: 9999;">
+      <div class="modal-content-box" style="max-width: 600px; width: 90%; max-height: 90vh; overflow-y: auto; background: #ffffff; border-radius: 12px; padding: 24px;">
+        <div class="modal-header" style="display: flex; justify-content: space-between; align-items: flex-start; border-bottom: 1px solid #e2e8f0; padding-bottom: 16px;">
+          <div>
+            <span class="badge-mini" id="applyJobCode">JOB-001 • Operations</span>
+            <h3 id="applyJobTitle" style="margin: 6px 0 0 0; font-size: 1.35rem; color: #1e293b;">Dispatch Operations Executive</h3>
+          </div>
+          <button type="button" class="modal-close-btn" id="btnCloseJobApplyModal" style="background: none; border: none; font-size: 1.5rem; cursor: pointer; color: #64748b;">&times;</button>
+        </div>
+        <div class="modal-body" style="padding-top: 16px;">
+          <div style="display: flex; gap: 16px; margin-bottom: 16px; font-size: 0.9rem; color: #475569; background: #f8fafc; padding: 12px; border-radius: 8px;">
+            <span>📍 Location: <strong id="applyJobLocation">Hyderabad</strong></span>
+            <span>⏱️ Experience: <strong id="applyJobExp">2 - 4 Years</strong></span>
+          </div>
+
+          <h5 style="margin: 12px 0 6px 0; color: #1e293b;">Job Description Summary</h5>
+          <p id="applyJobDesc" style="font-size: 0.92rem; color: #475569; line-height: 1.5;"></p>
+
+          <h5 style="margin: 14px 0 6px 0; color: #1e293b;">Key Responsibilities</h5>
+          <ul id="applyJobResp" style="font-size: 0.9rem; color: #475569; padding-left: 20px; line-height: 1.5;"></ul>
+
+          <h5 style="margin: 14px 0 6px 0; color: #1e293b;">Candidate Requirements</h5>
+          <ul id="applyJobReq" style="font-size: 0.9rem; color: #475569; padding-left: 20px; line-height: 1.5;"></ul>
+
+          <div style="margin-top: 24px; border-top: 1px solid #e2e8f0; padding-top: 16px;">
+            <h4 style="margin: 0 0 12px 0; color: #1e293b;">Apply for this Position</h4>
+            <form id="jobApplyForm" onsubmit="return false;" style="display: flex; flex-direction: column; gap: 12px;">
+              <label style="display: flex; flex-direction: column; font-size: 0.88rem; font-weight: 600; color: #334155;">
+                Full Name *
+                <input type="text" id="appFullName" placeholder="e.g. Ramesh Kumar" required style="margin-top: 4px; padding: 10px; border: 1px solid #cbd5e1; border-radius: 6px;">
+              </label>
+              <label style="display: flex; flex-direction: column; font-size: 0.88rem; font-weight: 600; color: #334155;">
+                Mobile Phone Number *
+                <input type="tel" id="appMobile" placeholder="e.g. 9876543210" maxlength="10" required style="margin-top: 4px; padding: 10px; border: 1px solid #cbd5e1; border-radius: 6px;">
+              </label>
+              <label style="display: flex; flex-direction: column; font-size: 0.88rem; font-weight: 600; color: #334155;">
+                Email Address
+                <input type="email" id="appEmail" placeholder="e.g. ramesh@gmail.com" style="margin-top: 4px; padding: 10px; border: 1px solid #cbd5e1; border-radius: 6px;">
+              </label>
+              <label style="display: flex; flex-direction: column; font-size: 0.88rem; font-weight: 600; color: #334155;">
+                Brief Experience / CV Cover Note
+                <textarea id="appNote" rows="2" placeholder="Tell us briefly about your transport / logistics background..." style="margin-top: 4px; padding: 10px; border: 1px solid #cbd5e1; border-radius: 6px;"></textarea>
+              </label>
+              <button type="button" class="btn btn-primary" id="btnSubmitJobApp" style="padding: 12px; margin-top: 8px; cursor: pointer;">
+                Submit Job Application
+              </button>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
   </main>
 
   <!-- Footer -->
@@ -1077,8 +1778,8 @@
           <li><a href="#services">Services</a></li>
           <li><a href="#tracker">Tracker</a></li>
           <li><a href="#fleet">Fleet</a></li>
-          <li><a href="#faq">FAQ</a></li>
-          <li><a href="#contact">Contact</a></li>
+          <li><a href="#onboarding">Truck Onboarding</a></li>
+          <li><a href="#owner-dashboard">Carrier Portal</a></li>
         </ul>
       </div>
 
@@ -1122,6 +1823,7 @@
   </a>
 
   <script src="script.js"></script>
+  <script src="onboarding.js"></script>
 </body>
 
 </html>

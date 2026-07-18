@@ -1,0 +1,1512 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Admin Operations Portal | Chitkote Logistics</title>
+  <meta name="description" content="Chitkote Logistics Internal Verification Desk and Document Audit Portal.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Outfit:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+</head>
+
+<body class="admin-portal-body">
+
+  <!-- Header -->
+  <header class="site-header">
+    <div class="top-bar">
+      <div class="top-bar-inner">
+        <div class="top-bar-left">
+          <span class="badge-mini">✓ Internal Operations</span>
+          <span class="badge-mini">✓ Document Audit System</span>
+        </div>
+        <div class="top-bar-right">
+          <span>24/7 Dispatch Desk: <strong><a href="tel:+919390003955">+91 93900 03955</a></strong></span>
+        </div>
+      </div>
+    </div>
+    <div class="header-inner">
+      <a class="brand" href="index.html">
+        <img class="brand-logo" src="Images/newlogo_processed.png" alt="Chitkote Logistics Logo" width="69" height="45">
+        <span class="brand-name">Chitkote Logistics</span>
+      </a>
+      <nav class="main-nav" aria-label="Admin navigation">
+        <a href="index.html#home">Return to Public Website</a>
+        <a href="admin.html" class="active nav-highlight">Admin Operations Portal</a>
+      </nav>
+    </div>
+  </header>
+
+  <main style="padding-top: 100px; min-height: 85vh; padding-bottom: 60px;">
+    <!-- ADMIN VERIFICATION PORTAL SECTION -->
+    <section id="admin-onboarding-portal" class="section section-admin-portal" style="padding-top: 20px;">
+      <div class="section-heading">
+        <p class="eyebrow">Internal Verification Desk</p>
+        <h2>Admin Management Portal & Document Audit</h2>
+        <p>Audit truck owner registrations, review RC & insurance files, add verification remarks, and approve carrier access.</p>
+      </div>
+
+      <!-- ADMIN LOGIN VIEW (Displayed when Admin is NOT logged in) -->
+      <div class="portal-container" id="adminLoginSection">
+        <div class="portal-card" style="max-width: 480px; margin: 0 auto; padding: 32px; border-radius: 12px; box-shadow: 0 10px 30px rgba(0,0,0,0.08); background: #ffffff;">
+          <div style="text-align: center; margin-bottom: 24px;">
+            <div style="width: 56px; height: 56px; background: rgba(22, 101, 192, 0.1); color: #166534; border-radius: 50%; display: inline-flex; align-items: center; justify-content: center; margin-bottom: 12px;">
+              <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#166534" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path></svg>
+            </div>
+            <h3 style="margin: 0; color: #1e293b; font-size: 1.5rem;">Admin Security Login</h3>
+            <p class="card-subtitle" style="margin-top: 6px; color: #64748b; font-size: 0.93rem;">Enter operational desk credentials to access carrier onboarding and document audit logs.</p>
+          </div>
+
+          <form id="adminLoginForm" onsubmit="return false;">
+            <div class="login-input-group" style="display: flex; flex-direction: column; gap: 16px;">
+              <label style="display: flex; flex-direction: column; text-align: left; font-weight: 600; color: #334155; font-size: 0.9rem;">
+                <span>Admin Username</span>
+                <input type="text" id="adminLoginUser" placeholder="e.g. admin" required style="margin-top: 6px; padding: 12px 14px; border: 1px solid #cbd5e1; border-radius: 8px; font-size: 1rem;">
+              </label>
+              <label style="display: flex; flex-direction: column; text-align: left; font-weight: 600; color: #334155; font-size: 0.9rem;">
+                <span>Admin Password</span>
+                <input type="password" id="adminLoginPass" placeholder="••••••••" required style="margin-top: 6px; padding: 12px 14px; border: 1px solid #cbd5e1; border-radius: 8px; font-size: 1rem;">
+              </label>
+              <div id="adminLoginError" style="display: none; color: #dc2626; background: #fef2f2; border: 1px solid #fecaca; padding: 10px; border-radius: 6px; font-size: 0.875rem; text-align: center;"></div>
+              <button type="button" class="btn btn-primary btn-block" id="btnAdminLogin" style="padding: 12px; margin-top: 8px; font-size: 1rem; cursor: pointer;">
+                Authenticate & Unlock Admin Desk
+              </button>
+            </div>
+          </form>
+
+          <div style="margin-top: 20px; text-align: center; font-size: 0.85rem; color: #64748b; background: #f8fafc; padding: 12px; border-radius: 8px; border: 1px dashed #cbd5e1;">
+            🔒 Restricted access for Chitkote Logistics Verification Team.
+          </div>
+        </div>
+      </div>
+
+      <!-- ADMIN DASHBOARD CONTENT VIEW (Displayed ONLY when Admin IS logged in) -->
+      <div class="admin-dashboard-wrapper" id="adminDashboardContent" style="display: none;">
+        <!-- Admin Session Active Bar -->
+        <div style="display: flex; justify-content: space-between; align-items: center; background: #ffffff; padding: 14px 20px; border-radius: 10px; box-shadow: 0 2px 8px rgba(0,0,0,0.05); margin-bottom: 20px; border: 1px solid #e2e8f0;">
+          <div style="display: flex; align-items: center; gap: 10px;">
+            <span style="display: inline-block; width: 10px; height: 10px; background: #16a34a; border-radius: 50%;"></span>
+            <span style="font-weight: 600; color: #1e293b; font-size: 0.95rem;">Authenticated Session: Operation Desk Admin</span>
+          </div>
+          <button type="button" class="btn-logout" id="btnAdminLogout" style="padding: 8px 16px; background: #fee2e2; color: #991b1b; border: 1px solid #fca5a5; border-radius: 6px; font-size: 0.875rem; font-weight: 600; cursor: pointer; transition: all 0.2s;">
+            Log Out Admin
+          </button>
+        </div>
+
+        <!-- MAIN MODULE TOP TAB NAVIGATION -->
+        <div class="admin-tab-nav">
+          <button type="button" class="admin-tab-btn active" id="tabBtnLRModule" onclick="switchAdminMainTab('lrModule')">
+            📄 Multi-Company LR (Bilty) Management
+          </button>
+          <button type="button" class="admin-tab-btn" id="tabBtnOnboarding" onclick="switchAdminMainTab('onboarding')">
+            🚚 Carrier Onboarding & Audit
+          </button>
+          <button type="button" class="admin-tab-btn" id="tabBtnCareers" onclick="switchAdminMainTab('careers')">
+            💼 Careers & JD Management
+          </button>
+        </div>
+
+        <!-- ==================================================================== -->
+        <!-- TAB 1: MULTI-COMPANY LR MANAGEMENT MODULE                            -->
+        <!-- ==================================================================== -->
+        <div id="mainTabContentLRModule" class="admin-module-tab-content">
+          <!-- Company Switcher Header Bar -->
+          <div style="background: #ffffff; padding: 16px 20px; border-radius: 12px; border: 1px solid #e2e8f0; margin-bottom: 20px; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 12px;">
+            <div>
+              <h3 style="margin: 0; font-size: 1.25rem; color: #0f172a;">Multi-Company Transport & LR Operations</h3>
+              <p style="margin: 4px 0 0 0; color: #64748b; font-size: 0.88rem;">Manage Chitkote Logistics India Pvt Ltd (CK Logistics) and Sri TamilNadu Transport Co (STTC) bilty records, GST, & masters.</p>
+            </div>
+            <div style="display: flex; gap: 12px; align-items: center;">
+              <label style="font-weight: 600; font-size: 0.88rem; color: #334155; margin: 0;">Active Company:</label>
+              <select id="lrCompanyFilterSelect" style="padding: 8px 14px; border-radius: 8px; border: 1px solid #cbd5e1; font-weight: 600; font-size: 0.9rem; width: auto; background: #f8fafc; color: #0f1e36;">
+                <option value="ALL">All Companies (Combined Desk)</option>
+                <option value="CHITKOTE">Chitkote Logistics India Pvt Ltd (CK Logistics)</option>
+                <option value="SRI_TAMILNADU">Sri TamilNadu Transport Co (STTC)</option>
+              </select>
+            </div>
+          </div>
+          
+          <!-- Datalists for Searchable Autocomplete -->
+          <datalist id="consignorDatalist"></datalist>
+          <datalist id="consigneeDatalist"></datalist>
+          <datalist id="vehicleDatalist"></datalist>
+          <datalist id="driverDatalist"></datalist>
+          <datalist id="fromCityDatalist"></datalist>
+          <datalist id="toCityDatalist"></datalist>
+
+          <!-- 6 Key Metric Cards for LR Operations -->
+          <div class="admin-stats-grid" style="grid-template-columns: repeat(6, 1fr); margin-bottom: 20px;">
+            <div class="stat-card">
+              <div class="stat-icon stat-icon-blue">📄</div>
+              <div class="stat-info">
+                <strong id="statLrTotal">0</strong>
+                <p>Total LRs Issued</p>
+              </div>
+            </div>
+
+            <div class="stat-card">
+              <div class="stat-icon stat-icon-green">🏢</div>
+              <div class="stat-info">
+                <strong id="statLrChitkote">0</strong>
+                <p>CK Logistics</p>
+              </div>
+            </div>
+
+            <div class="stat-card">
+              <div class="stat-icon stat-icon-orange">🚚</div>
+              <div class="stat-info">
+                <strong id="statLrStnt">0</strong>
+                <p>Sri TamilNadu Co</p>
+              </div>
+            </div>
+
+            <div class="stat-card">
+              <div class="stat-icon stat-icon-yellow">💰</div>
+              <div class="stat-info">
+                <strong id="statLrFreight">₹ 0</strong>
+                <p>Total Freight Value</p>
+              </div>
+            </div>
+
+            <div class="stat-card">
+              <div class="stat-icon stat-icon-red">⏳</div>
+              <div class="stat-info">
+                <strong id="statLrPendingPod">0</strong>
+                <p>Pending PODs</p>
+              </div>
+            </div>
+
+            <div class="stat-card">
+              <div class="stat-icon stat-icon-blue">💳</div>
+              <div class="stat-info">
+                <strong id="statLrTotalToPay">₹ 0</strong>
+                <p>Balance To Pay</p>
+              </div>
+            </div>
+          </div>
+
+          <!-- LR Subtab Navigation -->
+          <div class="lr-subtab-nav">
+            <button type="button" class="lr-subtab-btn active" id="btnLrSubtabRegister" onclick="switchLrSubtab('register')">📄 LR Register & Dispatch Desk</button>
+            <button type="button" class="lr-subtab-btn" id="btnLrSubtabLoadingSlips" onclick="switchLrSubtab('loadingSlips')">📝 Loading Slip Register</button>
+            <button type="button" class="lr-subtab-btn" id="btnLrSubtabCustomers" onclick="switchLrSubtab('customers')">👥 Customer Master (Consignor/Consignee)</button>
+            <button type="button" class="lr-subtab-btn" id="btnLrSubtabVehicles" onclick="switchLrSubtab('vehicles')">🚛 Vehicle Master</button>
+            <button type="button" class="lr-subtab-btn" id="btnLrSubtabDrivers" onclick="switchLrSubtab('drivers')">🪪 Driver Master</button>
+            <button type="button" class="lr-subtab-btn" id="btnLrSubtabReports" onclick="switchLrSubtab('reports')">📊 Reports & Tally Integration</button>
+            <button type="button" class="lr-subtab-btn" id="btnLrSubtabCompanies" onclick="switchLrSubtab('companies')">🏢 Company Profiles</button>
+          </div>
+
+          <!-- SUBTAB 1: LR REGISTER & DISPATCH DESK -->
+          <div id="lrSubtabContentRegister" class="lr-subtab-content">
+            <div class="admin-controls-bar" style="margin-bottom: 16px;">
+              <div class="search-box">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>
+                <input type="text" id="lrSearchInput" placeholder="Search by LR No (e.g. CL26-27/STTC26-27), Consignor, Vehicle, City...">
+              </div>
+
+              <div class="filter-controls">
+                <select id="lrStatusFilterSelect">
+                  <option value="ALL">All Statuses</option>
+                  <option value="Draft">Draft</option>
+                  <option value="Dispatched">Dispatched</option>
+                  <option value="In Transit">In Transit</option>
+                  <option value="Delivered">Delivered</option>
+                  <option value="POD Uploaded">POD Uploaded</option>
+                  <option value="Billed">Billed</option>
+                </select>
+
+                <button type="button" class="btn btn-primary" onclick="LRManager.openCreateLRModal()" style="display:inline-flex; align-items:center; gap:6px; cursor:pointer;">
+                  <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="12" y1="5" x2="12" y2="19"></line><line x1="5" y1="12" x2="19" y2="12"></line></svg>
+                  Generate New LR (Bilty)
+                </button>
+              </div>
+            </div>
+
+            <div class="admin-table-card">
+              <div class="table-responsive">
+                <table class="admin-table">
+                  <thead>
+                    <tr>
+                      <th>LR No & Date</th>
+                      <th>Company</th>
+                      <th>Consignor ➡️ Consignee</th>
+                      <th>Vehicle & Driver</th>
+                      <th>Total Freight</th>
+                      <th>Delivery Status</th>
+                      <th>POD Audit</th>
+                      <th>Actions</th>
+                    </tr>
+                  </thead>
+                  <tbody id="lrTableBody">
+                    <!-- Rendered via lr_manager.js -->
+                  </tbody>
+                </table>
+              </div>
+            </div>
+            <!-- Pagination Controls -->
+            <div class="pagination-bar" style="display:flex; justify-content:space-between; align-items:center; margin-top:16px; padding:10px; background:#fff; border-radius:8px; border:1px solid #e2e8f0;">
+              <span id="lrPaginationInfo" style="font-size:0.88rem; color:#64748b;">Showing 1 to 10 of 100 entries</span>
+              <div style="display:flex; gap:8px;">
+                <button type="button" class="btn btn-secondary" id="btnLrPrevPage" onclick="LRManager.prevPage()" style="padding:6px 12px; font-size:0.85rem; cursor:pointer;">Previous</button>
+                <button type="button" class="btn btn-secondary" id="btnLrNextPage" onclick="LRManager.nextPage()" style="padding:6px 12px; font-size:0.85rem; cursor:pointer;">Next</button>
+              </div>
+            </div>
+          </div>
+
+          <!-- SUBTAB 1.5: LOADING SLIPS REGISTER -->
+          <div id="lrSubtabContentLoadingSlips" class="lr-subtab-content" style="display: none;">
+            <div class="admin-controls-bar" style="margin-bottom: 16px;">
+              <div class="search-box">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>
+                <input type="text" id="loadingSlipSearchInput" placeholder="Search by Slip No, Vehicle, Driver, Owner, Route, Consignor...">
+              </div>
+              <div style="display:flex; gap:8px;">
+                <select id="loadingSlipCompanyFilter" style="padding:8px 12px; border:1px solid #cbd5e1; border-radius:6px; background:#fff; font-size:0.9rem; cursor:pointer;">
+                  <option value="ALL">All Companies</option>
+                  <option value="CHITKOTE">Chitkote Logistics</option>
+                  <option value="SRI_TAMILNADU">Sri Tamilnadu Transport Co.</option>
+                </select>
+                <button type="button" class="btn btn-primary" onclick="window.LoadingSlipManager.openCreateSlipModal()">+ Generate Loading Slip</button>
+              </div>
+            </div>
+
+            <div class="admin-table-card">
+              <div class="table-responsive">
+                <table class="admin-table">
+                  <thead>
+                    <tr>
+                      <th>Slip No & Date</th>
+                      <th>Company</th>
+                      <th>Vehicle & Route</th>
+                      <th>Consignor Name</th>
+                      <th style="text-align:right;">Freight Details (₹)</th>
+                      <th style="text-align:right;">Expenses Sum (₹)</th>
+                      <th style="text-align:right;">C.Less / Net (₹)</th>
+                      <th>Action</th>
+                    </tr>
+                  </thead>
+                  <tbody id="loadingSlipTableBody">
+                    <!-- Rendered dynamically -->
+                  </tbody>
+                </table>
+              </div>
+            </div>
+
+            <!-- Pagination Controls -->
+            <div class="pagination-bar" style="display:flex; justify-content:space-between; align-items:center; margin-top:16px; padding:10px; background:#fff; border-radius:8px; border:1px solid #e2e8f0;">
+              <span id="loadingSlipPaginationInfo" style="font-size:0.88rem; color:#64748b;">Showing 0 to 0 of 0 entries</span>
+              <div style="display:flex; gap:8px;">
+                <button type="button" class="btn btn-secondary" id="btnLsPrevPage" onclick="window.LoadingSlipManager.prevPage()" style="padding:6px 12px; font-size:0.85rem; cursor:pointer;">Previous</button>
+                <button type="button" class="btn btn-secondary" id="btnLsNextPage" onclick="window.LoadingSlipManager.nextPage()" style="padding:6px 12px; font-size:0.85rem; cursor:pointer;">Next</button>
+              </div>
+            </div>
+          </div>
+
+          <!-- SUBTAB 2: CUSTOMER MASTER -->
+          <div id="lrSubtabContentCustomers" class="lr-subtab-content" style="display: none;">
+            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 16px;">
+              <h4 style="margin: 0; color: #1e293b;">Registered Customer Master (Consignors & Consignees)</h4>
+              <button type="button" class="btn btn-primary" onclick="LRManager.openCustomerModal()">+ Add Customer Master</button>
+            </div>
+            <div class="admin-table-card">
+              <div class="table-responsive">
+                <table class="admin-table">
+                  <thead>
+                    <tr>
+                      <th>Cust ID</th>
+                      <th>Company Name & Location</th>
+                      <th>GSTIN & Pincode</th>
+                      <th>Contact Details</th>
+                      <th>Type</th>
+                      <th>Action</th>
+                    </tr>
+                  </thead>
+                  <tbody id="lrCustomerTableBody">
+                    <!-- Rendered dynamically -->
+                  </tbody>
+                </table>
+              </div>
+            </div>
+          </div>
+
+          <!-- SUBTAB 3: VEHICLE MASTER -->
+          <div id="lrSubtabContentVehicles" class="lr-subtab-content" style="display: none;">
+            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 16px;">
+              <h4 style="margin: 0; color: #1e293b;">Fleet & Vehicle Master</h4>
+              <button type="button" class="btn btn-primary" onclick="LRManager.openVehicleModal()">+ Add Vehicle</button>
+            </div>
+            <div class="admin-table-card">
+              <div class="table-responsive">
+                <table class="admin-table">
+                  <thead>
+                    <tr>
+                      <th>Vehicle Number</th>
+                      <th>Vehicle Type</th>
+                      <th>Capacity</th>
+                      <th>Owner Category</th>
+                      <th>Assigned Driver</th>
+                      <th>RC & Insurance Expiry</th>
+                    </tr>
+                  </thead>
+                  <tbody id="lrVehicleTableBody">
+                    <!-- Rendered dynamically -->
+                  </tbody>
+                </table>
+              </div>
+            </div>
+          </div>
+
+          <!-- SUBTAB 4: DRIVER MASTER -->
+          <div id="lrSubtabContentDrivers" class="lr-subtab-content" style="display: none;">
+            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 16px;">
+              <h4 style="margin: 0; color: #1e293b;">Driver Master</h4>
+              <button type="button" class="btn btn-primary" onclick="LRManager.openDriverModal()">+ Add Driver</button>
+            </div>
+            <div class="admin-table-card">
+              <div class="table-responsive">
+                <table class="admin-table">
+                  <thead>
+                    <tr>
+                      <th>Driver Name</th>
+                      <th>Driving License No</th>
+                      <th>Contact Mobile</th>
+                      <th>Experience</th>
+                      <th>License Validity</th>
+                    </tr>
+                  </thead>
+                  <tbody id="lrDriverTableBody">
+                    <!-- Rendered dynamically -->
+                  </tbody>
+                </table>
+              </div>
+            </div>
+          </div>
+
+          <!-- SUBTAB 5: REPORTS & TALLY INTEGRATION -->
+          <div id="lrSubtabContentReports" class="lr-subtab-content" style="display: none;">
+            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 20px; margin-top: 10px;">
+              <!-- Tally Export Card -->
+              <div class="admin-table-card" style="padding: 24px;">
+                <div style="display: flex; align-items: center; gap: 12px; margin-bottom: 14px;">
+                  <div style="width: 48px; height: 48px; background: #e0f2fe; color: #0369a1; border-radius: 10px; display: flex; align-items: center; justify-content: center; font-size: 1.5rem; font-weight: bold;">T</div>
+                  <div>
+                    <h4 style="margin: 0; color: #0f172a; font-size: 1.15rem;">Tally Prime Sales Voucher Export</h4>
+                    <p style="margin: 2px 0 0 0; color: #64748b; font-size: 0.88rem;">Export LR freight vouchers into XML format for direct import into Tally Prime / ERP 9.</p>
+                  </div>
+                </div>
+                <p style="font-size: 0.85rem; color: #475569; background: #f8fafc; padding: 12px; border-radius: 8px; border: 1px dashed #cbd5e1;">
+                  ✔️ Includes Party Ledgers, Freight Income, IGST/CGST split, E-Way Bill numbers, & Vehicle reference.
+                </p>
+                <button type="button" class="btn btn-primary" onclick="LRManager.exportTallyXML()" style="margin-top: 14px; width: 100%;">
+                  📥 Download Tally XML File
+                </button>
+              </div>
+
+              <!-- LR Register CSV Card -->
+              <div class="admin-table-card" style="padding: 24px;">
+                <div style="display: flex; align-items: center; gap: 12px; margin-bottom: 14px;">
+                  <div style="width: 48px; height: 48px; background: #f0fdf4; color: #166534; border-radius: 10px; display: flex; align-items: center; justify-content: center; font-size: 1.5rem; font-weight: bold;">X</div>
+                  <div>
+                    <h4 style="margin: 0; color: #0f172a; font-size: 1.15rem;">Full LR Register (CSV / Excel)</h4>
+                    <p style="margin: 2px 0 0 0; color: #64748b; font-size: 0.88rem;">Export complete LR dispatch register, freight breakdown, advances, and status history.</p>
+                  </div>
+                </div>
+                <p style="font-size: 0.85rem; color: #475569; background: #f8fafc; padding: 12px; border-radius: 8px; border: 1px dashed #cbd5e1;">
+                  📊 Ideal for monthly GST returns, audit verification, and customer billing reconciliations.
+                </p>
+                <button type="button" class="btn btn-secondary" onclick="LRManager.exportRegisterCSV()" style="margin-top: 14px; width: 100%; border: 1px solid #cbd5e1;">
+                  📊 Export LR Register to Excel (CSV)
+                </button>
+              </div>
+            </div>
+          </div>
+
+          <!-- SUBTAB 6: COMPANY SETTINGS -->
+          <div id="lrSubtabContentCompanies" class="lr-subtab-content" style="display: none;">
+            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 16px; border-bottom: 1px solid #e2e8f0; padding-bottom: 8px;">
+              <div>
+                <h4 style="margin: 0; color: #1e293b; font-size:1.2rem;">🏢 Company Profiles & Configuration</h4>
+                <p style="margin:2px 0 0 0; font-size:0.85rem; color:#64748b;">Configure company logo path, addresses, phone numbers, and bank account settings printed on LRs and Loading Slips.</p>
+              </div>
+            </div>
+            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 20px; margin-top: 10px;" id="companiesListGrid">
+              <!-- Rendered Dynamically via JS -->
+            </div>
+          </div>
+        </div>
+
+        <!-- ==================================================================== -->
+        <!-- TAB 2: CARRIER ONBOARDING & AUDIT                                    -->
+        <!-- ==================================================================== -->
+        <div id="mainTabContentOnboarding" class="admin-module-tab-content" style="display: none;">
+          <!-- 5 Key Performance Metrics Cards -->
+          <div class="admin-stats-grid">
+            <div class="stat-card">
+              <div class="stat-icon stat-icon-blue"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path><circle cx="9" cy="7" r="4"></circle><path d="M23 21v-2a4 4 0 0 0-3-3.87"></path><path d="M16 3.13a4 4 0 0 1 0 7.75"></path></svg></div>
+              <div class="stat-info">
+                <strong id="statTotalReg">0</strong>
+                <p>Total Registrations</p>
+              </div>
+            </div>
+
+            <div class="stat-card">
+              <div class="stat-icon stat-icon-orange"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline></svg></div>
+              <div class="stat-info">
+                <strong id="statPending">0</strong>
+                <p>Pending Review</p>
+              </div>
+            </div>
+
+            <div class="stat-card">
+              <div class="stat-icon stat-icon-green"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path><polyline points="22 4 12 14.01 9 11.01"></polyline></svg></div>
+              <div class="stat-info">
+                <strong id="statApproved">0</strong>
+                <p>Approved Carriers</p>
+              </div>
+            </div>
+
+            <div class="stat-card">
+              <div class="stat-icon stat-icon-yellow"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline></svg></div>
+              <div class="stat-info">
+                <strong id="statDocsPending">0</strong>
+                <p>Docs Pending</p>
+              </div>
+            </div>
+
+            <div class="stat-card">
+              <div class="stat-icon stat-icon-red"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"></circle><line x1="15" y1="9" x2="9" y2="15"></line><line x1="9" y1="9" x2="15" y2="15"></line></svg></div>
+              <div class="stat-info">
+                <strong id="statRejected">0</strong>
+                <p>Rejected</p>
+              </div>
+            </div>
+          </div>
+
+          <!-- Filter & Search Controls -->
+          <div class="admin-controls-bar">
+            <div class="search-box">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>
+              <input type="text" id="adminSearchInput" placeholder="Search by Vehicle No (e.g. TS08), Mobile, PAN, or Owner ID...">
+            </div>
+
+            <div class="filter-controls">
+              <select id="adminStatusFilter">
+                <option value="All">All Statuses</option>
+                <option value="Submitted">Submitted</option>
+                <option value="Under Review">Under Review</option>
+                <option value="Documents Pending">Documents Pending</option>
+                <option value="Approved">Approved</option>
+                <option value="Rejected">Rejected</option>
+              </select>
+
+              <button type="button" class="btn-excel-export" id="btnExportExcel">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="margin-right:6px;"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path><polyline points="7 10 12 15 17 10"></polyline><line x1="12" y1="15" x2="12" y2="3"></line></svg>
+                Export Approved to Excel (CSV)
+              </button>
+            </div>
+          </div>
+
+          <!-- Applications Data Table -->
+          <div class="admin-table-card" style="margin-bottom: 40px;">
+            <div class="table-responsive">
+              <table class="admin-table">
+                <thead>
+                  <tr>
+                    <th>Owner ID</th>
+                    <th>Owner & Company</th>
+                    <th>Contact & PAN</th>
+                    <th>Registered Vehicles</th>
+                    <th>Submitted Date</th>
+                    <th>Current Status</th>
+                    <th>Action</th>
+                  </tr>
+                </thead>
+                <tbody id="adminTableBody">
+                  <!-- Rendered via onboarding.js -->
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+
+        <!-- ==================================================================== -->
+        <!-- TAB 3: CAREERS & JOB DESCRIPTION (JD) MANAGEMENT DESK                -->
+        <!-- ==================================================================== -->
+        <div id="mainTabContentCareers" class="admin-module-tab-content" style="display: none;">
+          <div class="admin-table-card" style="background:#ffffff; padding:24px; border-radius:12px; border:1px solid #e2e8f0;">
+            <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:20px; flex-wrap:wrap; gap:12px;">
+              <div>
+                <h3 style="margin:0; font-size:1.35rem; color:#1e293b;">Careers & Job Descriptions (JD) Management</h3>
+                <p style="margin:4px 0 0 0; color:#64748b; font-size:0.9rem;">Add, update, edit, and toggle active job openings visible on the website Careers page.</p>
+              </div>
+              <div style="display:flex; gap:16px; align-items:center;">
+                <div style="font-size:0.9rem; color:#475569; background:#f1f5f9; padding:6px 14px; border-radius:20px;">
+                  Total JDs: <strong id="statTotalJds" style="color:#0f172a;">0</strong> | Active: <strong id="statActiveJds" style="color:#166534;">0</strong>
+                </div>
+                <button type="button" class="btn btn-primary" id="btnAdminAddJd" style="display:inline-flex; align-items:center; gap:6px; cursor:pointer;">
+                  <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="12" y1="5" x2="12" y2="19"></line><line x1="5" y1="12" x2="19" y2="12"></line></svg>
+                  Add New Job Opening (JD)
+                </button>
+              </div>
+            </div>
+
+            <div class="table-responsive">
+              <table class="admin-table">
+                <thead>
+                  <tr>
+                    <th>Job Code</th>
+                    <th>Job Title & Experience</th>
+                    <th>Department</th>
+                    <th>Location</th>
+                    <th>Status</th>
+                    <th>Actions</th>
+                  </tr>
+                </thead>
+                <tbody id="adminCareersTableBody">
+                  <!-- Rendered dynamically via CareersManager in onboarding.js -->
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- CREATE / EDIT LR MODAL -->
+    <div class="custom-modal" id="lrCreateModal" style="display:none; position: fixed; top: 0; left: 0; right: 0; bottom: 0; background: rgba(15, 23, 42, 0.6); align-items: center; justify-content: center; z-index: 9999;">
+      <div class="modal-content-box" style="max-width: 860px; width: 92%; max-height: 92vh; overflow-y: auto; background: #ffffff; border-radius: 12px; padding: 24px;">
+        <div class="modal-header" style="display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid #e2e8f0; padding-bottom: 14px;">
+          <h3 id="lrModalHeading" style="margin:0; font-size:1.3rem; color:#1e293b;">Create New Lorry Receipt (LR / Bilty)</h3>
+          <button type="button" class="modal-close-btn" onclick="document.getElementById('lrCreateModal').style.display='none';" style="background:none; border:none; font-size:1.5rem; cursor:pointer; color:#64748b;">&times;</button>
+        </div>
+        <div class="modal-body" style="padding-top:16px;">
+          <form id="lrCreateForm" onsubmit="return false;" style="display:flex; flex-direction:column; gap:16px;">
+            <input type="hidden" id="lrEditId" value="">
+
+            <!-- Row 1: Company, LR No, LR Date -->
+            <div style="display:grid; grid-template-columns: 2fr 1fr 1fr; gap:14px;">
+              <label style="display:flex; flex-direction:column; font-weight:600; font-size:0.88rem; color:#334155;">
+                Company Branch *
+                <select id="lrFormCompany" onchange="LRManager.onCompanyChangeInForm(this.value)" style="margin-top:4px; padding:10px; border:1px solid #cbd5e1; border-radius:6px; font-weight:600;">
+                  <option value="CHITKOTE">Chitkote Logistics India Pvt Ltd (CK Logistics)</option>
+                  <option value="SRI_TAMILNADU">Sri TamilNadu Transport Co (STTC)</option>
+                </select>
+              </label>
+
+              <label style="display:flex; flex-direction:column; font-weight:600; font-size:0.88rem; color:#334155;">
+                LR Number *
+                <input type="text" id="lrFormNo" required readonly style="margin-top:4px; padding:10px; border:1px solid #cbd5e1; border-radius:6px; background:#f8fafc; font-weight:bold;">
+              </label>
+
+              <label style="display:flex; flex-direction:column; font-weight:600; font-size:0.88rem; color:#334155;">
+                LR Date *
+                <input type="date" id="lrFormDate" required style="margin-top:4px; padding:10px; border:1px solid #cbd5e1; border-radius:6px;">
+              </label>
+            </div>
+
+            <!-- Row 2: Freight Paid By, E-Way Bill, Invoice No, Invoice Value -->
+            <div style="display:grid; grid-template-columns: 1fr 1fr 1fr 1fr; gap:14px;">
+              <label style="display:flex; flex-direction:column; font-weight:600; font-size:0.88rem; color:#334155;">
+                Freight Paid By *
+                <select id="lrFormFreightPaidBy" style="margin-top:4px; padding:10px; border:1px solid #cbd5e1; border-radius:6px;">
+                  <option value="Consignor">Consignor (Paid / To Pay by Consignor)</option>
+                  <option value="Consignee">Consignee (To Pay by Consignee)</option>
+                </select>
+              </label>
+
+              <label style="display:flex; flex-direction:column; font-weight:600; font-size:0.88rem; color:#334155;">
+                E-Way Bill Number
+                <input type="text" id="lrFormEway" placeholder="12-digit E-Way bill" style="margin-top:4px; padding:10px; border:1px solid #cbd5e1; border-radius:6px;">
+              </label>
+
+              <label style="display:flex; flex-direction:column; font-weight:600; font-size:0.88rem; color:#334155;">
+                Invoice No
+                <input type="text" id="lrFormInvoiceNo" placeholder="Inv #22" style="margin-top:4px; padding:10px; border:1px solid #cbd5e1; border-radius:6px;">
+              </label>
+
+              <label style="display:flex; flex-direction:column; font-weight:600; font-size:0.88rem; color:#334155;">
+                Invoice Value (₹)
+                <input type="number" id="lrFormInvoiceVal" placeholder="450000" style="margin-top:4px; padding:10px; border:1px solid #cbd5e1; border-radius:6px;">
+              </label>
+            </div>
+
+            <!-- GST Auto-Fetch Row for LR Creation -->
+            <div style="background: #f0fdf4; padding: 10px 14px; border-radius: 8px; border: 1px solid #bbf7d0; display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 8px;">
+              <span style="font-weight: 600; font-size: 0.85rem; color: #166534;">⚡ Auto-Fetch Company & Route from GSTIN:</span>
+              <div style="display: flex; gap: 8px; flex: 1; max-width: 520px;">
+                <input type="text" id="lrFormGstinLookup" placeholder="Paste 15-digit GSTIN..." style="flex: 1; padding: 6px 10px; border: 1px solid #86efac; border-radius: 6px; font-size: 0.85rem; font-weight: 600; text-transform: uppercase;">
+                <button type="button" class="btn btn-secondary" onclick="LRManager.fetchAndFillConsignorFromGSTIN()" style="white-space: nowrap; font-size: 0.82rem; padding: 6px 10px; border: 1px solid #86efac; background: #ffffff; color: #166534; font-weight: 600; cursor:pointer;">
+                  ⬅️ Set Consignor
+                </button>
+                <button type="button" class="btn btn-secondary" onclick="LRManager.fetchAndFillConsigneeFromGSTIN()" style="white-space: nowrap; font-size: 0.82rem; padding: 6px 10px; border: 1px solid #86efac; background: #ffffff; color: #166534; font-weight: 600; cursor:pointer;">
+                  Set Consignee ➡️
+                </button>
+              </div>
+            </div>
+
+            <!-- Row 3: Searchable Consignor & Consignee (Side by Side 2-Column) -->
+            <div style="display:grid; grid-template-columns: 1fr 1fr; gap:14px; background:#f8fafc; padding:12px; border-radius:8px; border:1px solid #e2e8f0;">
+              <label style="display:flex; flex-direction:column; font-weight:600; font-size:0.88rem; color:#334155;">
+                Consignor (Sender) * 🔍 Type to Search
+                <input type="text" id="lrFormConsignor" list="consignorDatalist" placeholder="Type or select Consignor..." onchange="LRManager.onConsignorChangeInForm(this.value)" required style="margin-top:4px; padding:10px; border:1px solid #cbd5e1; border-radius:6px; background:#ffffff;">
+              </label>
+
+              <label style="display:flex; flex-direction:column; font-weight:600; font-size:0.88rem; color:#334155;">
+                Consignee (Receiver) * 🔍 Type to Search
+                <input type="text" id="lrFormConsignee" list="consigneeDatalist" placeholder="Type or select Consignee..." onchange="LRManager.onConsigneeChangeInForm(this.value)" required style="margin-top:4px; padding:10px; border:1px solid #cbd5e1; border-radius:6px; background:#ffffff;">
+              </label>
+            </div>
+
+            <!-- Row 4: Searchable Vehicle Number, Assigned Driver, Driver Phone -->
+            <div style="display:grid; grid-template-columns: 1fr 1fr 1fr; gap:14px;">
+              <label style="display:flex; flex-direction:column; font-weight:600; font-size:0.88rem; color:#334155;">
+                Vehicle Number * 🔍 Type to Search
+                <input type="text" id="lrFormVehicle" list="vehicleDatalist" placeholder="Type or select Vehicle No..." onchange="LRManager.onVehicleChangeInForm(this.value)" required style="margin-top:4px; padding:10px; border:1px solid #cbd5e1; border-radius:6px;">
+              </label>
+
+              <label style="display:flex; flex-direction:column; font-weight:600; font-size:0.88rem; color:#334155;">
+                Assigned Driver * 🔍 Type to Search
+                <input type="text" id="lrFormDriver" list="driverDatalist" placeholder="Type or select Driver Name..." onchange="LRManager.onDriverChangeInForm(this.value)" style="margin-top:4px; padding:10px; border:1px solid #cbd5e1; border-radius:6px;">
+              </label>
+
+              <label style="display:flex; flex-direction:column; font-weight:600; font-size:0.88rem; color:#334155;">
+                Driver Phone
+                <input type="text" id="lrFormDriverPhone" placeholder="Driver Mobile" style="margin-top:4px; padding:10px; border:1px solid #cbd5e1; border-radius:6px;">
+              </label>
+            </div>
+
+            <!-- Row 5: Searchable From City & To Destination -->
+            <div style="display:grid; grid-template-columns: 1fr 1fr; gap:14px;">
+              <label style="display:flex; flex-direction:column; font-weight:600; font-size:0.88rem; color:#334155;">
+                From City * 🔍 Type to Search
+                <input type="text" id="lrFormFrom" list="fromCityDatalist" placeholder="e.g. Hyderabad" required style="margin-top:4px; padding:10px; border:1px solid #cbd5e1; border-radius:6px;">
+              </label>
+
+              <label style="display:flex; flex-direction:column; font-weight:600; font-size:0.88rem; color:#334155;">
+                To Destination * 🔍 Type to Search
+                <input type="text" id="lrFormTo" list="toCityDatalist" placeholder="e.g. Coimbatore" required style="margin-top:4px; padding:10px; border:1px solid #cbd5e1; border-radius:6px;">
+              </label>
+            </div>
+
+            <!-- Row 6: Goods Description & Rates -->
+            <div style="background:#f8fafc; padding:12px; border-radius:8px; border:1px solid #e2e8f0;">
+              <h5 style="margin:0 0 10px 0; color:#1e293b;">Goods Description & Freight Auto-Calculation</h5>
+              <div style="display:grid; grid-template-columns: 2fr 1fr 1fr 1fr 1fr; gap:8px;">
+                <input type="text" id="lrFormDesc" placeholder="Description of goods" style="padding:8px; border:1px solid #cbd5e1; border-radius:6px;">
+                <input type="number" id="lrFormPackets" placeholder="No of Pkts" value="1" style="padding:8px; border:1px solid #cbd5e1; border-radius:6px;">
+                <input type="number" step="0.1" id="lrFormWeight" placeholder="Weight" oninput="LRManager.autoCalculateFreightInForm()" style="padding:8px; border:1px solid #cbd5e1; border-radius:6px;">
+                <select id="lrFormUnit" style="padding:8px; border:1px solid #cbd5e1; border-radius:6px;">
+                  <option value="Tonnes">Tonnes</option>
+                  <option value="Kgs">Kgs</option>
+                  <option value="Boxes">Boxes</option>
+                  <option value="Trip">Fixed Trip</option>
+                </select>
+                <input type="number" id="lrFormRate" placeholder="Rate ₹" oninput="LRManager.autoCalculateFreightInForm()" style="padding:8px; border:1px solid #cbd5e1; border-radius:6px;">
+              </div>
+            </div>
+
+            <!-- Row for Ancillary Charges -->
+            <div style="background:#f8fafc; padding:12px; border-radius:8px; border:1px solid #e2e8f0;">
+              <h5 style="margin:0 0 10px 0; color:#1e293b;">Ancillary Charges</h5>
+              <div style="display:grid; grid-template-columns: 1fr 1fr 1fr 1fr 1fr; gap:8px;">
+                <label style="display:flex; flex-direction:column; font-weight:600; font-size:0.8rem; color:#475569;">
+                  Loading Charges (₹)
+                  <input type="number" id="lrFormLoading" value="0" oninput="LRManager.autoCalculateFreightInForm()" style="margin-top:4px; padding:8px; border:1px solid #cbd5e1; border-radius:6px;">
+                </label>
+                <label style="display:flex; flex-direction:column; font-weight:600; font-size:0.8rem; color:#475569;">
+                  Unloading Charges (₹)
+                  <input type="number" id="lrFormUnloading" value="0" oninput="LRManager.autoCalculateFreightInForm()" style="margin-top:4px; padding:8px; border:1px solid #cbd5e1; border-radius:6px;">
+                </label>
+                <label style="display:flex; flex-direction:column; font-weight:600; font-size:0.8rem; color:#475569;">
+                  Toll Charges (₹)
+                  <input type="number" id="lrFormToll" value="0" oninput="LRManager.autoCalculateFreightInForm()" style="margin-top:4px; padding:8px; border:1px solid #cbd5e1; border-radius:6px;">
+                </label>
+                <label style="display:flex; flex-direction:column; font-weight:600; font-size:0.8rem; color:#475569;">
+                  Detention Charges (₹)
+                  <input type="number" id="lrFormDetention" value="0" oninput="LRManager.autoCalculateFreightInForm()" style="margin-top:4px; padding:8px; border:1px solid #cbd5e1; border-radius:6px;">
+                </label>
+                <label style="display:flex; flex-direction:column; font-weight:600; font-size:0.8rem; color:#475569;">
+                  Other Charges (₹)
+                  <input type="number" id="lrFormOtherCharges" value="0" oninput="LRManager.autoCalculateFreightInForm()" style="margin-top:4px; padding:8px; border:1px solid #cbd5e1; border-radius:6px;">
+                </label>
+              </div>
+            </div>
+
+            <div style="display:grid; grid-template-columns: 1fr 1fr 1fr 1fr 1fr; gap:10px;">
+              <label style="display:flex; flex-direction:column; font-weight:600; font-size:0.85rem; color:#334155;">
+                Freight Amt (₹)
+                <input type="number" id="lrFormFreightAmt" readonly style="margin-top:4px; padding:8px; border:1px solid #cbd5e1; border-radius:6px; background:#f1f5f9; font-weight:bold;">
+              </label>
+
+              <label style="display:flex; flex-direction:column; font-weight:600; font-size:0.85rem; color:#334155;">
+                GST Rate (%)
+                <select id="lrFormGstPct" onchange="LRManager.autoCalculateFreightInForm()" style="margin-top:4px; padding:8px; border:1px solid #cbd5e1; border-radius:6px;">
+                  <option value="0">0% (Exempt / RCM)</option>
+                  <option value="5">5% (Transport GST)</option>
+                  <option value="12">12% (Forward Charge)</option>
+                </select>
+              </label>
+
+              <label style="display:flex; flex-direction:column; font-weight:600; font-size:0.85rem; color:#334155;">
+                GST Amt (₹)
+                <input type="number" id="lrFormGstAmt" readonly style="margin-top:4px; padding:8px; border:1px solid #cbd5e1; border-radius:6px; background:#f1f5f9;">
+              </label>
+
+              <label style="display:flex; flex-direction:column; font-weight:600; font-size:0.85rem; color:#334155;">
+                Advance Paid (₹)
+                <input type="number" id="lrFormAdvance" value="0" oninput="LRManager.autoCalculateFreightInForm()" style="margin-top:4px; padding:8px; border:1px solid #cbd5e1; border-radius:6px;">
+              </label>
+
+              <label style="display:flex; flex-direction:column; font-weight:600; font-size:0.85rem; color:#334155;">
+                To Pay Balance (₹)
+                <input type="number" id="lrFormToPay" readonly style="margin-top:4px; padding:8px; border:1px solid #cbd5e1; border-radius:6px; background:#fff7ed; color:#c2410c; font-weight:bold;">
+              </label>
+            </div>
+
+            <input type="hidden" id="lrFormTotalAmt" value="0">
+
+            <label style="display:flex; flex-direction:column; font-weight:600; font-size:0.85rem; color:#334155;">
+              Amount In Words
+              <input type="text" id="lrFormWords" readonly style="margin-top:4px; padding:8px; border:1px solid #cbd5e1; border-radius:6px; background:#f8fafc; font-style:italic;">
+            </label>
+
+            <label style="display:flex; flex-direction:column; font-weight:600; font-size:0.85rem; color:#334155;">
+              Special Remarks / Handling Notes
+              <input type="text" id="lrFormRemarks" value="Company is not responsible for the leakages & thefts" style="margin-top:4px; padding:8px; border:1px solid #cbd5e1; border-radius:6px;">
+            </label>
+
+            <div style="display:flex; justify-content:flex-end; gap:10px; margin-top:10px; border-top:1px solid #e2e8f0; padding-top:14px;">
+              <button type="button" class="btn btn-secondary" onclick="document.getElementById('lrCreateModal').style.display='none';">Cancel</button>
+              <button type="button" class="btn btn-primary" onclick="LRManager.saveLRFromForm()" style="cursor:pointer;">Save & Issue Lorry Receipt</button>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+
+    <!-- VIEW & PRINT BILTY MODAL -->
+    <div class="custom-modal" id="lrViewModal" style="display:none; position: fixed; top: 0; left: 0; right: 0; bottom: 0; background: rgba(15, 23, 42, 0.7); align-items: center; justify-content: center; z-index: 9999;">
+      <div class="modal-content-box" style="max-width: 900px; width: 95%; max-height: 95vh; overflow-y: auto; background: #ffffff; border-radius: 12px; padding: 20px;">
+        <div style="display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid #e2e8f0; padding-bottom: 10px; margin-bottom: 16px;">
+          <h4 style="margin:0; color:#0f172a;">Lorry Receipt Preview & Official Document Print Desk</h4>
+          <div style="display: flex; gap: 10px;">
+            <button type="button" class="btn btn-secondary" onclick="LRManager.editFromViewModal()" style="display:inline-flex; align-items:center; gap:6px; border:1px solid #cbd5e1; cursor:pointer;">
+              ✏️ Edit LR Report
+            </button>
+            <button type="button" class="btn btn-primary" onclick="LRManager.printCurrentBilty()" style="display:inline-flex; align-items:center; gap:6px;">
+              🖨️ Print / Save PDF Bilty
+            </button>
+            <button type="button" onclick="document.getElementById('lrViewModal').style.display='none';" style="background:none; border:none; font-size:1.5rem; cursor:pointer; color:#64748b;">&times;</button>
+          </div>
+        </div>
+        <div id="lrViewModalBody">
+          <!-- Rendered dynamically matching reference document -->
+        </div>
+      </div>
+    </div>
+
+    <!-- UPLOAD POD & UPDATE STATUS MODAL -->
+    <div class="custom-modal" id="lrPodModal" style="display:none; position: fixed; top: 0; left: 0; right: 0; bottom: 0; background: rgba(15, 23, 42, 0.6); align-items: center; justify-content: center; z-index: 9999;">
+      <div class="modal-content-box" style="max-width: 480px; width: 90%; background: #ffffff; border-radius: 12px; padding: 24px;">
+        <div style="display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid #e2e8f0; padding-bottom: 12px; margin-bottom: 16px;">
+          <h4 style="margin: 0; color: #0f172a;">Upload POD & Delivery Audit</h4>
+          <button type="button" onclick="document.getElementById('lrPodModal').style.display='none';" style="background:none; border:none; font-size:1.3rem; cursor:pointer;">&times;</button>
+        </div>
+        <form onsubmit="return false;" style="display: flex; flex-direction: column; gap: 14px;">
+          <input type="hidden" id="podLrId" value="">
+          <div>
+            <label style="font-weight: 600; font-size: 0.88rem; color: #334155;">Target LR:</label>
+            <div id="podLrTitle" style="font-weight: bold; font-size: 1rem; color: #0369a1; margin-top: 2px;">CL26-27/002</div>
+          </div>
+
+          <label style="display: flex; flex-direction: column; font-weight: 600; font-size: 0.88rem; color: #334155;">
+            Delivery Status *
+            <select id="podStatusSelect" style="margin-top: 4px; padding: 10px; border: 1px solid #cbd5e1; border-radius: 6px;">
+              <option value="Dispatched">Dispatched</option>
+              <option value="In Transit">In Transit</option>
+              <option value="Delivered">Delivered (Completed)</option>
+              <option value="POD Uploaded">POD Uploaded & Verified</option>
+              <option value="Billed">Billed / Invoiced</option>
+            </select>
+          </label>
+
+          <label style="display: flex; flex-direction: column; font-weight: 600; font-size: 0.88rem; color: #334155;">
+            Upload Signed Proof of Delivery (POD Copy)
+            <input type="file" id="podFileInput" accept="image/*,.pdf" style="margin-top: 4px; padding: 8px; border: 1px solid #cbd5e1; border-radius: 6px;">
+          </label>
+
+          <div style="display: flex; justify-content: flex-end; gap: 10px; margin-top: 10px;">
+            <button type="button" class="btn btn-secondary" onclick="document.getElementById('lrPodModal').style.display='none';">Cancel</button>
+            <button type="button" class="btn btn-primary" onclick="LRManager.savePODModal()">Save POD Record</button>
+          </div>
+        </form>
+      </div>
+    </div>
+
+    <!-- CUSTOMER MASTER MODAL -->
+    <div class="custom-modal" id="customerModal" style="display:none; position: fixed; top: 0; left: 0; right: 0; bottom: 0; background: rgba(15, 23, 42, 0.6); align-items: center; justify-content: center; z-index: 9999;">
+      <div class="modal-content-box" style="max-width: 600px; width: 90%; background: #ffffff; border-radius: 12px; padding: 24px;">
+        <div style="display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid #e2e8f0; padding-bottom: 12px; margin-bottom: 16px;">
+          <h4 style="margin: 0; color: #0f172a;">Add New Customer Master</h4>
+          <button type="button" onclick="document.getElementById('customerModal').style.display='none';" style="background:none; border:none; font-size:1.3rem; cursor:pointer;">&times;</button>
+        </div>
+        <form onsubmit="return false;" style="display: flex; flex-direction: column; gap: 14px;">
+          <!-- GST Auto-Fetch Bar -->
+          <div style="background: #e0f2fe; padding: 12px; border-radius: 8px; border: 1px solid #bae6fd; display: flex; flex-direction: column; gap: 6px;">
+            <label style="font-weight: 600; font-size: 0.85rem; color: #0369a1; display: flex; justify-content: space-between;">
+              ⚡ Auto-Fetch Company & Address from GSTIN (TransportBook Auto-Fetch)
+            </label>
+            <div style="display: flex; gap: 8px;">
+              <input type="text" id="custGstin" placeholder="Enter 15-digit GSTIN (e.g. 33AAACT1029F1Z2)" oninput="LRManager.onGSTINInputCustomer(this.value)" style="flex: 1; padding: 8px; border: 1px solid #7dd3fc; border-radius: 6px; font-weight: 600; text-transform: uppercase;">
+              <button type="button" class="btn btn-primary" onclick="LRManager.fetchGSTDetailsCustomer()" style="white-space: nowrap; font-size: 0.85rem; padding: 8px 12px; cursor:pointer;">
+                🔍 Fetch GST Data
+              </button>
+            </div>
+            <div id="custGstStatus" style="font-size: 0.8rem; font-weight: 600; color: #0284c7;">Enter a 15-digit GSTIN to auto-fill Company, City, State, & Address.</div>
+          </div>
+
+          <label style="display: flex; flex-direction: column; font-weight: 600; font-size: 0.88rem; color: #334155;">
+            Company Name *
+            <input type="text" id="custName" placeholder="e.g. TVS MOTOR SUPPLIES PVT LTD" required style="margin-top: 4px; padding: 8px; border: 1px solid #cbd5e1; border-radius: 6px;">
+          </label>
+          <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 10px;">
+            <label style="display: flex; flex-direction: column; font-weight: 600; font-size: 0.88rem; color: #334155;">
+              Category *
+              <select id="custType" style="margin-top: 4px; padding: 8px; border: 1px solid #cbd5e1; border-radius: 6px;">
+                <option value="Consignor">Consignor (Sender)</option>
+                <option value="Consignee">Consignee (Receiver)</option>
+                <option value="Both">Both (Consignor & Consignee)</option>
+              </select>
+            </label>
+            <label style="display: flex; flex-direction: column; font-weight: 600; font-size: 0.88rem; color: #334155;">
+              Contact Person
+              <input type="text" id="custContact" placeholder="Name" style="margin-top: 4px; padding: 8px; border: 1px solid #cbd5e1; border-radius: 6px;">
+            </label>
+          </div>
+          <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 10px;">
+            <label style="display: flex; flex-direction: column; font-weight: 600; font-size: 0.88rem; color: #334155;">
+              Mobile Phone
+              <input type="text" id="custPhone" placeholder="9876543210" style="margin-top: 4px; padding: 8px; border: 1px solid #cbd5e1; border-radius: 6px;">
+            </label>
+            <label style="display: flex; flex-direction: column; font-weight: 600; font-size: 0.88rem; color: #334155;">
+              Email Address
+              <input type="email" id="custEmail" placeholder="Email Address" style="margin-top: 4px; padding: 8px; border: 1px solid #cbd5e1; border-radius: 6px;">
+            </label>
+          </div>
+          <div style="display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 10px;">
+            <input type="text" id="custCity" placeholder="City" style="padding: 8px; border: 1px solid #cbd5e1; border-radius: 6px;">
+            <input type="text" id="custState" placeholder="State" style="padding: 8px; border: 1px solid #cbd5e1; border-radius: 6px;">
+            <input type="text" id="custPincode" placeholder="Pincode" style="padding: 8px; border: 1px solid #cbd5e1; border-radius: 6px;">
+          </div>
+          <input type="text" id="custAddress" placeholder="Full Address" style="padding: 8px; border: 1px solid #cbd5e1; border-radius: 6px;">
+
+          <div style="display: flex; justify-content: flex-end; gap: 10px; margin-top: 10px;">
+            <button type="button" class="btn btn-secondary" onclick="document.getElementById('customerModal').style.display='none';">Cancel</button>
+            <button type="button" class="btn btn-primary" onclick="LRManager.saveCustomer()">Save Customer Master</button>
+          </div>
+        </form>
+      </div>
+    </div>
+
+    <!-- VEHICLE MASTER MODAL -->
+    <div class="custom-modal" id="vehicleModal" style="display:none; position: fixed; top: 0; left: 0; right: 0; bottom: 0; background: rgba(15, 23, 42, 0.6); align-items: center; justify-content: center; z-index: 9999;">
+      <div class="modal-content-box" style="max-width: 520px; width: 90%; background: #ffffff; border-radius: 12px; padding: 24px;">
+        <div style="display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid #e2e8f0; padding-bottom: 12px; margin-bottom: 16px;">
+          <h4 style="margin: 0; color: #0f172a;">Add Vehicle Master</h4>
+          <button type="button" onclick="document.getElementById('vehicleModal').style.display='none';" style="background:none; border:none; font-size:1.3rem; cursor:pointer;">&times;</button>
+        </div>
+        <form onsubmit="return false;" style="display: flex; flex-direction: column; gap: 12px;">
+          <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 10px;">
+            <input type="text" id="vehNumber" placeholder="Vehicle No (e.g. TS08EX1234)" required style="padding: 8px; border: 1px solid #cbd5e1; border-radius: 6px;">
+            <select id="vehType" style="padding: 8px; border: 1px solid #cbd5e1; border-radius: 6px;">
+              <option value="32 FT Container">32 FT Container</option>
+              <option value="20 FT Container">20 FT Container</option>
+              <option value="14 FT Open Body">14 FT Open Body</option>
+              <option value="Trailer 40 FT">Trailer 40 FT</option>
+            </select>
+          </div>
+          <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 10px;">
+            <input type="number" step="0.1" id="vehCapacity" placeholder="Capacity (Tons)" style="padding: 8px; border: 1px solid #cbd5e1; border-radius: 6px;">
+            <select id="vehOwnerType" style="padding: 8px; border: 1px solid #cbd5e1; border-radius: 6px;">
+              <option value="Owned">Company Owned</option>
+              <option value="Attached">Market / Attached</option>
+            </select>
+          </div>
+          <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 10px;">
+            <input type="text" id="vehDriverName" placeholder="Assigned Driver Name" style="padding: 8px; border: 1px solid #cbd5e1; border-radius: 6px;">
+            <input type="text" id="vehDriverPhone" placeholder="Driver Phone" style="padding: 8px; border: 1px solid #cbd5e1; border-radius: 6px;">
+          </div>
+          <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 10px;">
+            <label style="font-size:0.8rem; font-weight:600;">RC Expiry: <input type="date" id="vehRcExp" style="margin-top:2px; padding:6px; border:1px solid #cbd5e1; border-radius:6px;"></label>
+            <label style="font-size:0.8rem; font-weight:600;">Insurance Expiry: <input type="date" id="vehInsExp" style="margin-top:2px; padding:6px; border:1px solid #cbd5e1; border-radius:6px;"></label>
+          </div>
+          <div style="display: flex; justify-content: flex-end; gap: 10px; margin-top: 10px;">
+            <button type="button" class="btn btn-secondary" onclick="document.getElementById('vehicleModal').style.display='none';">Cancel</button>
+            <button type="button" class="btn btn-primary" onclick="LRManager.saveVehicle()">Save Vehicle</button>
+          </div>
+        </form>
+      </div>
+    </div>
+
+    <!-- DRIVER MASTER MODAL -->
+    <div class="custom-modal" id="driverModal" style="display:none; position: fixed; top: 0; left: 0; right: 0; bottom: 0; background: rgba(15, 23, 42, 0.6); align-items: center; justify-content: center; z-index: 9999;">
+      <div class="modal-content-box" style="max-width: 480px; width: 90%; background: #ffffff; border-radius: 12px; padding: 24px;">
+        <div style="display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid #e2e8f0; padding-bottom: 12px; margin-bottom: 16px;">
+          <h4 style="margin: 0; color: #0f172a;">Add Driver Master</h4>
+          <button type="button" onclick="document.getElementById('driverModal').style.display='none';" style="background:none; border:none; font-size:1.3rem; cursor:pointer;">&times;</button>
+        </div>
+        <form onsubmit="return false;" style="display: flex; flex-direction: column; gap: 12px;">
+          <input type="text" id="drvName" placeholder="Driver Full Name" required style="padding: 8px; border: 1px solid #cbd5e1; border-radius: 6px;">
+          <input type="text" id="drvLicense" placeholder="Driving License Number" required style="padding: 8px; border: 1px solid #cbd5e1; border-radius: 6px;">
+          <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 10px;">
+            <input type="text" id="drvPhone" placeholder="Mobile Number" style="padding: 8px; border: 1px solid #cbd5e1; border-radius: 6px;">
+            <input type="number" id="drvYrs" placeholder="Exp (Years)" style="padding: 8px; border: 1px solid #cbd5e1; border-radius: 6px;">
+          </div>
+          <label style="font-size:0.8rem; font-weight:600;">License Expiry: <input type="date" id="drvExp" style="margin-top:2px; padding:6px; border:1px solid #cbd5e1; border-radius:6px;"></label>
+          <div style="display: flex; justify-content: flex-end; gap: 10px; margin-top: 10px;">
+            <button type="button" class="btn btn-secondary" onclick="document.getElementById('driverModal').style.display='none';">Cancel</button>
+            <button type="button" class="btn btn-primary" onclick="LRManager.saveDriver()">Save Driver</button>
+          </div>
+        </form>
+      </div>
+    </div>
+
+    <!-- ADMIN ADD / EDIT JOB DESCRIPTION (JD) MODAL -->
+    <div class="custom-modal" id="adminJdModal" style="display:none; position: fixed; top: 0; left: 0; right: 0; bottom: 0; background: rgba(15, 23, 42, 0.6); align-items: center; justify-content: center; z-index: 9999;">
+      <div class="modal-content-box" style="max-width: 650px; width: 90%; max-height: 90vh; overflow-y: auto; background: #ffffff; border-radius: 12px; padding: 24px;">
+        <div class="modal-header" style="display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid #e2e8f0; padding-bottom: 14px;">
+          <h3 id="jdModalHeading" style="margin:0; font-size:1.3rem; color:#1e293b;">Add New Job Description (JD)</h3>
+          <button type="button" class="modal-close-btn" id="btnCloseJdModal" style="background:none; border:none; font-size:1.5rem; cursor:pointer; color:#64748b;">&times;</button>
+        </div>
+        <div class="modal-body" style="padding-top:16px;">
+          <form id="adminJdForm" onsubmit="return false;" style="display:flex; flex-direction:column; gap:14px;">
+            <div style="display:grid; grid-template-columns: 1fr 1fr; gap:12px;">
+              <label style="display:flex; flex-direction:column; font-weight:600; font-size:0.88rem; color:#334155;">
+                Job Title *
+                <input type="text" id="jdTitle" placeholder="e.g. Logistics Operations Manager" required style="margin-top:4px; padding:10px; border:1px solid #cbd5e1; border-radius:6px;">
+              </label>
+
+              <label style="display:flex; flex-direction:column; font-weight:600; font-size:0.88rem; color:#334155;">
+                Department *
+                <select id="jdDepartment" style="margin-top:4px; padding:10px; border:1px solid #cbd5e1; border-radius:6px;">
+                  <option value="Operations">Operations</option>
+                  <option value="Business Development">Business Development</option>
+                  <option value="Carrier Onboarding">Carrier Onboarding</option>
+                  <option value="Fleet Management">Fleet Management</option>
+                  <option value="Accounts & Finance">Accounts & Finance</option>
+                </select>
+              </label>
+            </div>
+
+            <div style="display:grid; grid-template-columns: 1fr 1fr 1fr; gap:12px;">
+              <label style="display:flex; flex-direction:column; font-weight:600; font-size:0.88rem; color:#334155;">
+                Location *
+                <input type="text" id="jdLocation" placeholder="e.g. Hyderabad, TS" required style="margin-top:4px; padding:10px; border:1px solid #cbd5e1; border-radius:6px;">
+              </label>
+
+              <label style="display:flex; flex-direction:column; font-weight:600; font-size:0.88rem; color:#334155;">
+                Employment Type
+                <select id="jdType" style="margin-top:4px; padding:10px; border:1px solid #cbd5e1; border-radius:6px;">
+                  <option value="Full Time">Full Time</option>
+                  <option value="Part Time">Part Time</option>
+                  <option value="Contract">Contract</option>
+                </select>
+              </label>
+
+              <label style="display:flex; flex-direction:column; font-weight:600; font-size:0.88rem; color:#334155;">
+                Experience Required
+                <input type="text" id="jdExperience" placeholder="e.g. 3 - 5 Years" style="margin-top:4px; padding:10px; border:1px solid #cbd5e1; border-radius:6px;">
+              </label>
+            </div>
+
+            <label style="display:flex; flex-direction:column; font-weight:600; font-size:0.88rem; color:#334155;">
+              Status
+              <select id="jdStatus" style="margin-top:4px; padding:10px; border:1px solid #cbd5e1; border-radius:6px;">
+                <option value="Active">Active (Visible on Careers Page)</option>
+                <option value="Closed">Closed (Hidden from Careers Page)</option>
+              </select>
+            </label>
+
+            <label style="display:flex; flex-direction:column; font-weight:600; font-size:0.88rem; color:#334155;">
+              Job Overview / Summary *
+              <textarea id="jdDescription" rows="2" placeholder="Brief overview of the job role..." required style="margin-top:4px; padding:10px; border:1px solid #cbd5e1; border-radius:6px;"></textarea>
+            </label>
+
+            <label style="display:flex; flex-direction:column; font-weight:600; font-size:0.88rem; color:#334155;">
+              Key Responsibilities (One item per line)
+              <textarea id="jdResponsibilities" rows="3" placeholder="Coordinate vehicle dispatch&#10;Track container movement&#10;Manage driver reports" style="margin-top:4px; padding:10px; border:1px solid #cbd5e1; border-radius:6px;"></textarea>
+            </label>
+
+            <label style="display:flex; flex-direction:column; font-weight:600; font-size:0.88rem; color:#334155;">
+              Requirements & Qualifications (One item per line)
+              <textarea id="jdRequirements" rows="3" placeholder="Degree in Logistics or equivalent&#10;Fluent in Telugu & English&#10;Proficient in MS Excel & GPS tracking" style="margin-top:4px; padding:10px; border:1px solid #cbd5e1; border-radius:6px;"></textarea>
+            </label>
+
+            <div style="display:flex; justify-content:flex-end; gap:10px; margin-top:10px; border-top:1px solid #e2e8f0; padding-top:14px;">
+              <button type="button" class="btn btn-secondary" onclick="document.getElementById('adminJdModal').style.display='none';">Cancel</button>
+              <button type="button" class="btn btn-primary" id="btnSaveJdModal" style="cursor:pointer;">Save Job Description</button>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+
+        </div>
+      </div>
+    </div>
+
+    <!-- GENERATE LOADING SLIP MODAL -->
+    <div class="custom-modal" id="loadingSlipCreateModal" style="display:none; position: fixed; top: 0; left: 0; right: 0; bottom: 0; background: rgba(15, 23, 42, 0.6); align-items: center; justify-content: center; z-index: 9999;">
+      <div class="modal-content-box" style="max-width: 900px; width: 95%; max-height: 95vh; overflow-y: auto; background: #ffffff; border-radius: 12px; padding: 24px; box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.1);">
+        <div class="modal-header" style="display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid #e2e8f0; padding-bottom: 14px; margin-bottom: 16px;">
+          <h3 id="loadingSlipModalHeading" style="margin:0; font-size:1.3rem; color:#1e293b; font-weight:700;">Generate New Loading Slip</h3>
+          <button type="button" onclick="document.getElementById('loadingSlipCreateModal').style.display='none';" style="background:none; border:none; font-size:1.5rem; cursor:pointer; color:#64748b;">&times;</button>
+        </div>
+        <div class="modal-body">
+          <form id="loadingSlipCreateForm" onsubmit="return false;" style="display:flex; flex-direction:column; gap:16px;">
+            
+            <!-- Section 1: Header / Vehicle / Route -->
+            <div style="background:#f8fafc; border:1px solid #e2e8f0; border-radius:8px; padding:16px;">
+              <h4 style="margin:0 0 12px 0; color:#475569; font-size:1rem; border-bottom:1px solid #cbd5e1; padding-bottom:4px;">🚚 Trip & Carrier Details</h4>
+              <div style="display:grid; grid-template-columns: 1fr 1fr 1fr; gap:12px;">
+                <label style="display:flex; flex-direction:column; font-weight:600; font-size:0.85rem; color:#334155;">
+                  Select Company Branch *
+                  <select id="loadingSlipFormCompany" required style="margin-top:4px; padding:8px; border:1px solid #cbd5e1; border-radius:6px; background:#fff;">
+                    <option value="SRI_TAMILNADU">Sri Tamilnadu Transport Co.</option>
+                    <option value="CHITKOTE">Chitkote Logistics</option>
+                  </select>
+                </label>
+                
+                <label style="display:flex; flex-direction:column; font-weight:600; font-size:0.85rem; color:#334155;">
+                  Loading Slip No. (Auto-gen)
+                  <input type="text" id="loadingSlipFormNo" placeholder="Generated on save" readonly style="margin-top:4px; padding:8px; border:1px solid #cbd5e1; border-radius:6px; background:#f1f5f9; color:#64748b;">
+                </label>
+
+                <label style="display:flex; flex-direction:column; font-weight:600; font-size:0.85rem; color:#334155;">
+                  Date *
+                  <input type="date" id="loadingSlipFormDate" required style="margin-top:4px; padding:8px; border:1px solid #cbd5e1; border-radius:6px;">
+                </label>
+              </div>
+
+              <div style="display:grid; grid-template-columns: 1fr 1fr 1fr; gap:12px; margin-top:10px;">
+                <label style="display:flex; flex-direction:column; font-weight:600; font-size:0.85rem; color:#334155;">
+                  Truck No. *
+                  <input type="text" id="loadingSlipFormVehicle" list="vehicleDatalist" required placeholder="e.g. TN52AB1233" style="margin-top:4px; padding:8px; border:1px solid #cbd5e1; border-radius:6px; text-transform:uppercase;">
+                </label>
+
+                <label style="display:flex; flex-direction:column; font-weight:600; font-size:0.85rem; color:#334155;">
+                  Driver Name
+                  <input type="text" id="loadingSlipFormDriver" list="driverDatalist" placeholder="Driver Name" style="margin-top:4px; padding:8px; border:1px solid #cbd5e1; border-radius:6px;">
+                </label>
+
+                <label style="display:flex; flex-direction:column; font-weight:600; font-size:0.85rem; color:#334155;">
+                  Driver Cell No
+                  <input type="text" id="loadingSlipFormDriverPhone" placeholder="Mobile Number" style="margin-top:4px; padding:8px; border:1px solid #cbd5e1; border-radius:6px;">
+                </label>
+              </div>
+
+              <div style="display:grid; grid-template-columns: 1fr 1fr; gap:12px; margin-top:10px;">
+                <label style="display:flex; flex-direction:column; font-weight:600; font-size:0.85rem; color:#334155;">
+                  Truck Owner Name
+                  <input type="text" id="loadingSlipFormOwner" placeholder="e.g. KING TP" style="margin-top:4px; padding:8px; border:1px solid #cbd5e1; border-radius:6px;">
+                </label>
+
+                <label style="display:flex; flex-direction:column; font-weight:600; font-size:0.85rem; color:#334155;">
+                  Owner Cell No
+                  <input type="text" id="loadingSlipFormOwnerPhone" placeholder="Mobile Number" style="margin-top:4px; padding:8px; border:1px solid #cbd5e1; border-radius:6px;">
+                </label>
+              </div>
+
+              <div style="display:grid; grid-template-columns: 1fr 1fr 1fr 1fr; gap:12px; margin-top:10px;">
+                <label style="display:flex; flex-direction:column; font-weight:600; font-size:0.85rem; color:#334155;">
+                  From Location *
+                  <input type="text" id="loadingSlipFormFrom" placeholder="e.g. Hyderabad" required style="margin-top:4px; padding:8px; border:1px solid #cbd5e1; border-radius:6px;">
+                </label>
+
+                <label style="display:flex; flex-direction:column; font-weight:600; font-size:0.85rem; color:#334155;">
+                  To Location *
+                  <input type="text" id="loadingSlipFormTo" placeholder="e.g. Pollachi" required style="margin-top:4px; padding:8px; border:1px solid #cbd5e1; border-radius:6px;">
+                </label>
+
+                <label style="display:flex; flex-direction:column; font-weight:600; font-size:0.85rem; color:#334155;">
+                  Weight
+                  <input type="text" id="loadingSlipFormWeight" placeholder="e.g. 30MT" style="margin-top:4px; padding:8px; border:1px solid #cbd5e1; border-radius:6px;">
+                </label>
+
+                <label style="display:flex; flex-direction:column; font-weight:600; font-size:0.85rem; color:#334155;">
+                  Particulars (Cargo)
+                  <input type="text" id="loadingSlipFormParticulars" placeholder="Particulars" style="margin-top:4px; padding:8px; border:1px solid #cbd5e1; border-radius:6px;">
+                </label>
+              </div>
+
+              <div style="display:grid; grid-template-columns: 1fr 1fr; gap:12px; margin-top:10px;">
+                <label style="display:flex; flex-direction:column; font-weight:600; font-size:0.85rem; color:#334155;">
+                  Consignor Name M/s:-
+                  <input type="text" id="loadingSlipFormConsignor" placeholder="e.g. Santosh freight" style="margin-top:4px; padding:8px; border:1px solid #cbd5e1; border-radius:6px;">
+                </label>
+
+                <label style="display:flex; flex-direction:column; font-weight:600; font-size:0.85rem; color:#334155;">
+                  Consignee Name M/s:-
+                  <input type="text" id="loadingSlipFormConsignee" placeholder="e.g. As per Bill" style="margin-top:4px; padding:8px; border:1px solid #cbd5e1; border-radius:6px;">
+                </label>
+              </div>
+            </div>
+
+            <!-- Section 2: double-column Financial Sheet -->
+            <div style="display:grid; grid-template-columns: 1fr 1fr; gap:20px; background:#fffdf5; border:1px solid #fef08a; border-radius:8px; padding:16px;">
+              
+              <!-- Column A: Inward / Freight Receipts -->
+              <div>
+                <h4 style="margin:0 0 12px 0; color:#854d0e; font-size:1rem; border-bottom:1px solid #fef08a; padding-bottom:4px;">💰 Left Column: Freight & Advances</h4>
+                <div style="display:flex; flex-direction:column; gap:10px;">
+                  <label style="display:grid; grid-template-columns: 140px 1fr; align-items:center; font-weight:600; font-size:0.85rem; color:#334155;">
+                    Freight (₹) *
+                    <input type="number" id="loadingSlipFormFreight" value="0" required style="padding:6px; border:1px solid #cbd5e1; border-radius:6px;">
+                  </label>
+                  
+                  <label style="display:grid; grid-template-columns: 140px 1fr; align-items:center; font-weight:600; font-size:0.85rem; color:#334155;">
+                    Topay (₹)
+                    <input type="number" id="loadingSlipFormTopay" value="0" style="padding:6px; border:1px solid #cbd5e1; border-radius:6px;">
+                  </label>
+
+                  <label style="display:grid; grid-template-columns: 140px 1fr; align-items:center; font-weight:600; font-size:0.85rem; color:#334155;">
+                    Advance (₹)
+                    <input type="number" id="loadingSlipFormAdvance" value="0" style="padding:6px; border:1px solid #cbd5e1; border-radius:6px;">
+                  </label>
+
+                  <label style="display:grid; grid-template-columns: 140px 1fr; align-items:center; font-weight:600; font-size:0.85rem; color:#475569;">
+                    TOTAL Rs (₹)
+                    <input type="number" id="loadingSlipFormLeftTotal" value="0" readonly style="padding:6px; border:1px solid #cbd5e1; border-radius:6px; background:#f1f5f9; font-weight:bold;">
+                  </label>
+
+                  <div style="border-top: 1px dashed #cbd5e1; margin:8px 0; padding-top:8px;"></div>
+
+                  <label style="display:grid; grid-template-columns: 140px 1fr; align-items:center; font-weight:600; font-size:0.85rem; color:#334155;">
+                    C.Less (₹)
+                    <input type="number" id="loadingSlipFormCLess" value="0" readonly style="padding:6px; border:1px solid #cbd5e1; border-radius:6px; background:#f1f5f9; font-weight:bold; color:#1e293b;">
+                  </label>
+
+                  <label style="display:grid; grid-template-columns: 140px 1fr; align-items:center; font-weight:600; font-size:0.85rem; color:#334155;">
+                    Cash (₹)
+                    <input type="number" id="loadingSlipFormCash" value="0" style="padding:6px; border:1px solid #cbd5e1; border-radius:6px;">
+                  </label>
+
+                  <label style="display:grid; grid-template-columns: 140px 1fr; align-items:center; font-weight:600; font-size:0.85rem; color:#334155;">
+                    Bank (₹)
+                    <input type="number" id="loadingSlipFormBank" value="0" readonly style="padding:6px; border:1px solid #cbd5e1; border-radius:6px; background:#f1f5f9; font-weight:bold; color:#166534;">
+                  </label>
+                </div>
+              </div>
+
+              <!-- Column B: Commission / Deductions -->
+              <div>
+                <h4 style="margin:0 0 12px 0; color:#854d0e; font-size:1rem; border-bottom:1px solid #fef08a; padding-bottom:4px;">💸 Right Column: Deductions & Expenses</h4>
+                <div style="display:flex; flex-direction:column; gap:10px;">
+                  <label style="display:grid; grid-template-columns: 140px 1fr; align-items:center; font-weight:600; font-size:0.85rem; color:#334155;">
+                    Balance (₹)
+                    <input type="number" id="loadingSlipFormBalance" value="0" readonly style="padding:6px; border:1px solid #cbd5e1; border-radius:6px; background:#f1f5f9;">
+                  </label>
+
+                  <label style="display:grid; grid-template-columns: 140px 1fr; align-items:center; font-weight:600; font-size:0.85rem; color:#334155;">
+                    D Commission (₹)
+                    <input type="number" id="loadingSlipFormCommission" value="0" style="padding:6px; border:1px solid #cbd5e1; border-radius:6px;">
+                  </label>
+
+                  <label style="display:grid; grid-template-columns: 140px 1fr; align-items:center; font-weight:600; font-size:0.85rem; color:#334155;">
+                    Crossing (₹)
+                    <input type="number" id="loadingSlipFormCrossing" value="0" style="padding:6px; border:1px solid #cbd5e1; border-radius:6px;">
+                  </label>
+
+                  <label style="display:grid; grid-template-columns: 140px 1fr; align-items:center; font-weight:600; font-size:0.85rem; color:#334155;">
+                    Unloading (₹)
+                    <input type="number" id="loadingSlipFormUnload" value="0" style="padding:6px; border:1px solid #cbd5e1; border-radius:6px;">
+                  </label>
+
+                  <label style="display:grid; grid-template-columns: 140px 1fr; align-items:center; font-weight:600; font-size:0.85rem; color:#334155;">
+                    Loading (₹)
+                    <input type="number" id="loadingSlipFormLoading" value="0" style="padding:6px; border:1px solid #cbd5e1; border-radius:6px;">
+                  </label>
+
+                  <label style="display:grid; grid-template-columns: 140px 1fr; align-items:center; font-weight:600; font-size:0.85rem; color:#334155;">
+                    GM / Mamool (₹)
+                    <input type="number" id="loadingSlipFormGm" value="0" style="padding:6px; border:1px solid #cbd5e1; border-radius:6px;">
+                  </label>
+
+                  <div style="border-top: 1px dashed #cbd5e1; margin:8px 0; padding-top:8px;"></div>
+
+                  <label style="display:grid; grid-template-columns: 140px 1fr; align-items:center; font-weight:600; font-size:0.85rem; color:#475569;">
+                    TOTAL Rs (₹)
+                    <input type="number" id="loadingSlipFormExpensesSum" value="0" readonly style="padding:6px; border:1px solid #cbd5e1; border-radius:6px; background:#f1f5f9; font-weight:bold; color:#991b1b;">
+                  </label>
+                </div>
+              </div>
+
+            </div>
+
+            <div style="display:flex; justify-content:flex-end; gap:10px; border-top:1px solid #e2e8f0; padding-top:14px; margin-top:8px;">
+              <button type="button" class="btn btn-secondary" onclick="document.getElementById('loadingSlipCreateModal').style.display='none';">Cancel</button>
+              <button type="button" class="btn btn-primary" onclick="window.LoadingSlipManager.saveSlipFromForm()" style="cursor:pointer; background:#1e3a8a;">Save & Print Loading Slip</button>
+            </div>
+
+          </form>
+        </div>
+      </div>
+    </div>
+
+    <!-- VIEW & PRINT LOADING SLIP MODAL -->
+    <div class="custom-modal" id="loadingSlipViewModal" style="display:none; position: fixed; top: 0; left: 0; right: 0; bottom: 0; background: rgba(15, 23, 42, 0.6); align-items: center; justify-content: center; z-index: 9999;">
+      <div class="modal-content-box" style="max-width: 800px; width: 95%; max-height: 95vh; display: flex; flex-direction: column; background: #ffffff; border-radius: 12px; overflow: hidden; box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.1);">
+        <div class="modal-header" style="display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid #e2e8f0; padding: 16px 24px; background:#f8fafc;">
+          <h3 style="margin:0; font-size:1.2rem; color:#1e293b; font-weight:700;">Print preview: Loading Slip</h3>
+          <button type="button" onclick="document.getElementById('loadingSlipViewModal').style.display='none';" style="background:none; border:none; font-size:1.5rem; cursor:pointer; color:#64748b;">&times;</button>
+        </div>
+        <div class="modal-body" style="padding: 24px; overflow-y: auto; flex-grow: 1;">
+          
+          <!-- Template Switcher (Commission Bill vs Loading Slip) -->
+          <div style="display:flex; justify-content:center; gap:16px; margin-bottom:20px; border-bottom:1px solid #e2e8f0; padding-bottom:14px;">
+            <button type="button" class="btn active" id="btnTemplateLoadingSlip" onclick="window.LoadingSlipManager.switchTemplate('loading_slip')" style="padding:8px 16px; font-weight:bold; cursor:pointer;">
+              📝 Loading Slip (User Photo Format)
+            </button>
+            <button type="button" class="btn" id="btnTemplateCommissionBill" onclick="window.LoadingSlipManager.switchTemplate('commission_bill')" style="padding:8px 16px; font-weight:bold; cursor:pointer;">
+              💵 Commission Bill (Double-Column Excel)
+            </button>
+          </div>
+
+          <div id="loadingSlipViewModalBody" style="background:#fff; font-family:'Courier New', monospace; color:#000; line-height:1.4;">
+            <!-- Rendered printable A4 sheet -->
+          </div>
+        </div>
+        <div class="modal-footer" style="display: flex; justify-content: flex-end; gap: 10px; border-top: 1px solid #e2e8f0; padding: 16px 24px; background:#f8fafc;">
+          <button type="button" class="btn btn-secondary" onclick="document.getElementById('loadingSlipViewModal').style.display='none';">Close</button>
+          <button type="button" class="btn btn-primary" onclick="window.LoadingSlipManager.printCurrentSlip()" style="background:#1e3a8a;">Print / Export PDF</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- EDIT COMPANY PROFILE MODAL -->
+    <div class="custom-modal" id="companyEditModal" style="display:none; position: fixed; top: 0; left: 0; right: 0; bottom: 0; background: rgba(15, 23, 42, 0.6); align-items: center; justify-content: center; z-index: 9999;">
+      <div class="modal-content-box" style="max-width: 700px; width: 95%; max-height: 90vh; display: flex; flex-direction: column; background: #ffffff; border-radius: 12px; overflow: hidden; box-shadow: 0 20px 40px rgba(0,0,0,0.2);">
+        <div class="modal-header" style="display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid #e2e8f0; padding: 16px 24px; background:#1e3a8a; color:#ffffff;">
+          <h3 style="margin:0; font-size:1.2rem; font-weight:700;">Edit Company Profile</h3>
+          <button type="button" onclick="document.getElementById('companyEditModal').style.display='none';" style="background:none; border:none; font-size:1.5rem; cursor:pointer; color:#ffffff;">&times;</button>
+        </div>
+        <div class="modal-body" style="padding: 24px; overflow-y: auto; flex-grow: 1;">
+          <form id="companyEditForm" onsubmit="return false;" style="display:flex; flex-direction:column; gap:16px;">
+            <input type="hidden" id="companyEditId">
+            
+            <div style="display:grid; grid-template-columns: 1fr 1fr; gap:12px;">
+              <label style="display:flex; flex-direction:column; font-weight:600; font-size:0.85rem; color:#334155;">
+                Company Name
+                <input type="text" id="companyEditName" required style="margin-top:4px; padding:8px; border:1px solid #cbd5e1; border-radius:6px;">
+              </label>
+              <label style="display:flex; flex-direction:column; font-weight:600; font-size:0.85rem; color:#334155;">
+                Short/Display Name
+                <input type="text" id="companyEditShortName" required style="margin-top:4px; padding:8px; border:1px solid #cbd5e1; border-radius:6px;">
+              </label>
+            </div>
+
+            <div style="display:grid; grid-template-columns: 1fr 1fr 1fr; gap:12px;">
+              <label style="display:flex; flex-direction:column; font-weight:600; font-size:0.85rem; color:#334155;">
+                Short Code
+                <input type="text" id="companyEditShortCode" required style="margin-top:4px; padding:8px; border:1px solid #cbd5e1; border-radius:6px;">
+              </label>
+              <label style="display:flex; flex-direction:column; font-weight:600; font-size:0.85rem; color:#334155;">
+                LR Prefix
+                <input type="text" id="companyEditPrefix" required style="margin-top:4px; padding:8px; border:1px solid #cbd5e1; border-radius:6px;">
+              </label>
+              <label style="display:flex; flex-direction:column; font-weight:600; font-size:0.85rem; color:#334155;">
+                Cell/Phone No.
+                <input type="text" id="companyEditPhone" required style="margin-top:4px; padding:8px; border:1px solid #cbd5e1; border-radius:6px;">
+              </label>
+            </div>
+
+            <div style="display:grid; grid-template-columns: 1fr 1fr; gap:12px;">
+              <label style="display:flex; flex-direction:column; font-weight:600; font-size:0.85rem; color:#334155;">
+                Email Address
+                <input type="email" id="companyEditEmail" required style="margin-top:4px; padding:8px; border:1px solid #cbd5e1; border-radius:6px;">
+              </label>
+              <label style="display:flex; flex-direction:column; font-weight:600; font-size:0.85rem; color:#334155;">
+                Logo Image Path/URL
+                <input type="text" id="companyEditLogo" placeholder="e.g. Images/newlogo_processed.png" style="margin-top:4px; padding:8px; border:1px solid #cbd5e1; border-radius:6px;">
+              </label>
+            </div>
+
+            <label style="display:flex; flex-direction:column; font-weight:600; font-size:0.85rem; color:#334155;">
+              Billing Address
+              <textarea id="companyEditAddress" rows="2" required style="margin-top:4px; padding:8px; border:1px solid #cbd5e1; border-radius:6px;"></textarea>
+            </label>
+
+            <div style="display:grid; grid-template-columns: 1fr 1fr 1fr 1fr; gap:12px;">
+              <label style="display:flex; flex-direction:column; font-weight:600; font-size:0.85rem; color:#334155;">
+                GSTIN
+                <input type="text" id="companyEditGstin" required style="margin-top:4px; padding:8px; border:1px solid #cbd5e1; border-radius:6px;">
+              </label>
+              <label style="display:flex; flex-direction:column; font-weight:600; font-size:0.85rem; color:#334155;">
+                PAN Number
+                <input type="text" id="companyEditPan" required style="margin-top:4px; padding:8px; border:1px solid #cbd5e1; border-radius:6px;">
+              </label>
+              <label style="display:flex; flex-direction:column; font-weight:600; font-size:0.85rem; color:#334155;">
+                State Name
+                <input type="text" id="companyEditState" required style="margin-top:4px; padding:8px; border:1px solid #cbd5e1; border-radius:6px;">
+              </label>
+              <label style="display:flex; flex-direction:column; font-weight:600; font-size:0.85rem; color:#334155;">
+                State Code
+                <input type="text" id="companyEditStateCode" required style="margin-top:4px; padding:8px; border:1px solid #cbd5e1; border-radius:6px;">
+              </label>
+            </div>
+
+            <!-- Bank Details Sub-grid -->
+            <div style="background:#f0fdf4; border:1px solid #bbf7d0; padding:12px; border-radius:8px;">
+              <h5 style="margin:0 0 8px 0; color:#166534; font-size:0.9rem;">🏦 Company Settlement Bank Account (Printed on Loading Slip)</h5>
+              <div style="display:grid; grid-template-columns: 1.2fr 1.2fr 1fr 1fr; gap:8px;">
+                <label style="display:flex; flex-direction:column; font-size:0.8rem; font-weight:bold; color:#166534;">
+                  Bank Name
+                  <input type="text" id="companyEditBankName" placeholder="e.g. HDFC BANK LTD." style="margin-top:4px; padding:6px; border:1px solid #cbd5e1; border-radius:4px;">
+                </label>
+                <label style="display:flex; flex-direction:column; font-size:0.8rem; font-weight:bold; color:#166534;">
+                  Account Number
+                  <input type="text" id="companyEditBankAccNo" placeholder="e.g. 20682000000669" style="margin-top:4px; padding:6px; border:1px solid #cbd5e1; border-radius:4px;">
+                </label>
+                <label style="display:flex; flex-direction:column; font-size:0.8rem; font-weight:bold; color:#166534;">
+                  IFSC Code
+                  <input type="text" id="companyEditBankIfsc" placeholder="e.g. HDFC0002068" style="margin-top:4px; padding:6px; border:1px solid #cbd5e1; border-radius:4px;">
+                </label>
+                <label style="display:flex; flex-direction:column; font-size:0.8rem; font-weight:bold; color:#166534;">
+                  Branch Name
+                  <input type="text" id="companyEditBankBranch" placeholder="e.g. SHAMSHABAD" style="margin-top:4px; padding:6px; border:1px solid #cbd5e1; border-radius:4px;">
+                </label>
+              </div>
+            </div>
+
+            <label style="display:flex; flex-direction:column; font-weight:600; font-size:0.85rem; color:#334155;">
+              Bilty Terms & Conditions
+              <textarea id="companyEditTerms" rows="2" style="margin-top:4px; padding:8px; border:1px solid #cbd5e1; border-radius:6px;"></textarea>
+            </label>
+          </form>
+        </div>
+        <div class="modal-footer" style="display: flex; justify-content: flex-end; gap: 10px; border-top: 1px solid #e2e8f0; padding: 16px 24px; background:#f8fafc;">
+          <button type="button" class="btn btn-secondary" onclick="document.getElementById('companyEditModal').style.display='none';">Cancel</button>
+          <button type="button" class="btn btn-primary" onclick="window.LoadingSlipManager.saveCompanyProfile()" style="background:#1e3a8a;">Save Profile Settings</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- ADMIN APPLICATION REVIEW MODAL -->
+    <div class="custom-modal" id="adminReviewModal" style="display:none;">
+      <div class="modal-content-box">
+        <div class="modal-header">
+          <h3>Carrier Audit & Document Verification Desk</h3>
+          <button type="button" class="modal-close-btn" id="btnCloseAdminModal">&times;</button>
+        </div>
+        <div class="modal-body">
+          <div class="modal-owner-summary">
+            <div>
+              <span class="badge-mini" id="modalReviewCode">CKL-TRO-000001</span>
+              <h4 id="modalReviewOwnerName" style="margin-top:4px; font-size:1.2rem;">Rajesh Sharma</h4>
+              <p id="modalReviewCompany" class="text-muted">Sharma Transport Carrier Services</p>
+            </div>
+            <div style="text-align:right;">
+              <p>Submitted: <strong id="modalReviewSubmitted">2026-07-01</strong></p>
+              <p>Status: <span id="modalReviewStatus" class="dash-status-pill status-approved">Approved</span></p>
+            </div>
+          </div>
+
+          <div class="modal-audit-grid" style="display:grid; grid-template-columns: 1fr 1fr; gap:20px; margin-top:20px;">
+            <div class="audit-card-box">
+              <h5 style="margin-bottom:12px; font-size:1rem; color:#1e293b;">Uploaded Regulatory Documents</h5>
+              <div id="modalReviewDocs" class="doc-list-review">
+                <!-- Dynamic document list -->
+              </div>
+            </div>
+
+            <div class="audit-card-box">
+              <h5 style="margin-bottom:12px; font-size:1rem; color:#1e293b;">Audit Audit Log & Remarks History</h5>
+              <div id="modalReviewHistory" class="remarks-scroll-box" style="max-height:180px;">
+                <!-- Remarks history -->
+              </div>
+
+              <div style="margin-top:16px;">
+                <label style="font-weight:600; font-size:0.85rem; color:#334155;">Add Verification Desk Remark</label>
+                <textarea id="modalAdminRemarkText" rows="2" placeholder="Enter audit observations, missing document notes, or approval notes..." style="width:100%; border:1px solid #cbd5e1; border-radius:6px; padding:8px; margin-top:4px; font-size:0.9rem;"></textarea>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="modal-footer" style="display:flex; justify-content:space-between; align-items:center; border-top:1px solid #e2e8f0; padding:16px 24px; margin-top:10px;">
+          <button type="button" class="btn btn-secondary" id="btnAdminReqDocs" style="background:#fff7ed; color:#c2410c; border:1px solid #ffedd5;">
+            Request Missing Documents
+          </button>
+
+          <div style="display:flex; gap:10px;">
+            <button type="button" class="btn" id="btnAdminReject" style="background:#fef2f2; color:#b91c1c; border:1px solid #fecaca;">
+              Reject Application
+            </button>
+            <button type="button" class="btn btn-primary" id="btnAdminApprove" style="background:#166534;">
+              Approve Carrier Access
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <!-- Inline Tab Switcher Helper Logic -->
+  <script>
+    function switchAdminMainTab(tabId) {
+      const tabs = ['lrModule', 'onboarding', 'careers'];
+      tabs.forEach(t => {
+        const btn = document.getElementById('tabBtn' + t.charAt(0).toUpperCase() + t.slice(1));
+        const content = document.getElementById('mainTabContent' + t.charAt(0).toUpperCase() + t.slice(1));
+        if (btn) btn.classList.remove('active');
+        if (content) content.style.display = 'none';
+      });
+
+      const activeBtn = document.getElementById('tabBtn' + tabId.charAt(0).toUpperCase() + tabId.slice(1));
+      const activeContent = document.getElementById('mainTabContent' + tabId.charAt(0).toUpperCase() + tabId.slice(1));
+      if (activeBtn) activeBtn.classList.add('active');
+      if (activeContent) activeContent.style.display = 'block';
+
+      if (tabId === 'lrModule' && typeof LRManager !== 'undefined') {
+        LRManager.init();
+      }
+    }
+
+    function switchLrSubtab(subtabId) {
+      const subtabs = ['register', 'loadingSlips', 'customers', 'vehicles', 'drivers', 'reports', 'companies'];
+      subtabs.forEach(s => {
+        const btn = document.getElementById('btnLrSubtab' + s.charAt(0).toUpperCase() + s.slice(1));
+        const content = document.getElementById('lrSubtabContent' + s.charAt(0).toUpperCase() + s.slice(1));
+        if (btn) btn.classList.remove('active');
+        if (content) content.style.display = 'none';
+      });
+
+      const activeBtn = document.getElementById('btnLrSubtab' + subtabId.charAt(0).toUpperCase() + subtabId.slice(1));
+      const activeContent = document.getElementById('lrSubtabContent' + subtabId.charAt(0).toUpperCase() + subtabId.slice(1));
+      if (activeBtn) activeBtn.classList.add('active');
+      if (activeContent) activeContent.style.display = 'block';
+
+      if (subtabId === 'loadingSlips' && typeof window.LoadingSlipManager !== 'undefined') {
+        window.LoadingSlipManager.init();
+      }
+      if (subtabId === 'companies' && typeof window.LoadingSlipManager !== 'undefined') {
+        window.LoadingSlipManager.loadCompaniesTab();
+      }
+    }
+  </script>
+
+  <!-- Footer -->
+  <footer class="site-footer">
+    <div class="footer-bottom" style="text-align: center; padding: 20px;">
+      <p>&copy; 2026 Chitkote Logistics India Pvt. Ltd. | Secure Operational Portal</p>
+    </div>
+  </footer>
+
+  <script src="script.js"></script>
+  <script src="onboarding.js"></script>
+  <script src="lr_manager.js"></script>
+  <script src="loading_slip_manager.js"></script>
+</body>
+</html>

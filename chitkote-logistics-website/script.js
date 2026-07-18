@@ -19,20 +19,12 @@ const scrollToSection = (target) => {
 
 navLinks.forEach((link) => {
   link.addEventListener('click', (event) => {
-    const href = link.getAttribute('href');
-    if (href && href.startsWith('#')) {
-      event.preventDefault();
-      const target = document.querySelector(href);
-      if (target) {
-        if (target.id === 'onboarding') {
-          target.style.display = 'block';
-        }
-        scrollToSection(target);
-      }
-      if (header?.classList.contains('nav-open')) {
-        header.classList.remove('nav-open');
-        mobileToggle?.setAttribute('aria-expanded', 'false');
-      }
+    event.preventDefault();
+    const target = document.querySelector(link.getAttribute('href'));
+    scrollToSection(target);
+    if (header?.classList.contains('nav-open')) {
+      header.classList.remove('nav-open');
+      mobileToggle?.setAttribute('aria-expanded', 'false');
     }
   });
 });
@@ -149,8 +141,6 @@ const btnCalculate = document.getElementById('btnCalculate');
 const estOrigin = document.getElementById('estOrigin');
 const estDestination = document.getElementById('estDestination');
 const estTruck = document.getElementById('estTruck');
-const estCompany = document.getElementById('estCompany');
-const estPhone = document.getElementById('estPhone');
 const estimatorResult = document.getElementById('estimatorResult');
 const resDistance = document.getElementById('resDistance');
 const resTime = document.getElementById('resTime');
@@ -161,8 +151,6 @@ if (btnCalculate) {
     const origin = estOrigin.value;
     const dest = estDestination.value;
     const truck = estTruck.value;
-    const company = estCompany ? estCompany.value.trim() : '';
-    const phone = estPhone ? estPhone.value.trim() : '';
 
     if (!origin || !dest) {
       alert("Please select both Origin and Destination hubs.");
@@ -171,18 +159,6 @@ if (btnCalculate) {
 
     if (origin === dest) {
       alert("Origin and Destination cannot be the same city.");
-      return;
-    }
-
-    if (!company) {
-      alert("Please enter your Company Name to view the estimate.");
-      estCompany.focus();
-      return;
-    }
-
-    if (!phone || phone.length < 10) {
-      alert("Please enter a valid 10-digit Mobile Number to view the estimate.");
-      estPhone.focus();
       return;
     }
 
@@ -211,30 +187,12 @@ if (btnCalculate) {
 
     estimatorResult.style.display = 'block';
 
-    // Autofill Quote Form
+    // Autofill Quote Form Step 1
     const quoteOrigin = document.getElementById('quoteOrigin');
     const quoteDestination = document.getElementById('quoteDestination');
-    const formCompany = document.querySelector('input[name="company"]');
-    const formPhone = document.querySelector('input[name="phone"]');
-    const formVehiclePref = document.querySelector('select[name="vehiclePref"]');
-
-    if (quoteOrigin) quoteOrigin.value = origin;
-    if (quoteDestination) quoteDestination.value = dest;
-    if (formCompany) formCompany.value = company;
-    if (formPhone) formPhone.value = phone;
-    if (formVehiclePref) formVehiclePref.value = truck;
-  });
-}
-
-// 3.5 Cost Estimator & Quote Wizard Sync
-const lnkFinishBooking = document.getElementById('lnkFinishBooking');
-if (lnkFinishBooking) {
-  lnkFinishBooking.addEventListener('click', () => {
-    const quoteDate = document.getElementById('quoteDate');
-    if (quoteDate) {
-      setTimeout(() => {
-        quoteDate.focus();
-      }, 600);
+    if (quoteOrigin && quoteDestination) {
+      quoteOrigin.value = origin;
+      quoteDestination.value = dest;
     }
   });
 }
@@ -571,82 +529,6 @@ if (contactForm) {
       currentStep = 1;
       updateWizardUI();
     }
-  });
-}
-
-// 8. Interactive Corridor Map Logic
-const mapHubs = document.querySelectorAll('.map-hub');
-const routeCards = document.querySelectorAll('.route-card');
-const mapLinks = document.querySelectorAll('.map-link');
-
-if (mapHubs.length > 0) {
-  mapHubs.forEach(hub => {
-    hub.addEventListener('mouseenter', () => {
-      const city = hub.getAttribute('data-city').toLowerCase();
-      
-      // Highlight map links that contain abbreviation of hovered hub
-      const prefix = city === 'mumbai' ? 'bom' : (city === 'pune' ? 'pnq' : (city === 'hyderabad' ? 'hyd' : (city === 'bengaluru' ? 'blr' : (city === 'chennai' ? 'maa' : (city === 'coimbatore' ? 'cbe' : 'ixm')))));
-      mapLinks.forEach(link => {
-        if (link.className.baseVal.includes(prefix)) {
-          link.classList.add('active');
-        }
-      });
-
-      // Highlight route cards matching city
-      routeCards.forEach(card => {
-        const route = card.getAttribute('data-route');
-        if (route.includes(city) || (city === 'chennai' && route.includes('tamilnadu'))) {
-          card.classList.add('active');
-        }
-      });
-    });
-
-    hub.addEventListener('mouseleave', () => {
-      mapLinks.forEach(link => link.classList.remove('active'));
-      routeCards.forEach(card => card.classList.remove('active'));
-    });
-  });
-
-  // Inverse highlight: hover cards highlight corresponding map features
-  routeCards.forEach(card => {
-    card.addEventListener('mouseenter', () => {
-      const route = card.getAttribute('data-route');
-      let lines = [];
-      let hubs = [];
-
-      if (route === 'hyderabad-chennai') {
-        lines = ['.line-hyd-maa'];
-        hubs = ['.hub-hyd', '.hub-maa'];
-      } else if (route === 'hyderabad-coimbatore') {
-        lines = ['.line-hyd-blr', '.line-blr-cbe'];
-        hubs = ['.hub-hyd', '.hub-blr', '.hub-cbe'];
-      } else if (route === 'hyderabad-madurai') {
-        lines = ['.line-hyd-blr', '.line-blr-maa', '.line-maa-ixm'];
-        hubs = ['.hub-hyd', '.hub-blr', '.hub-maa', '.hub-ixm'];
-      } else if (route === 'mumbai-chennai') {
-        lines = ['.line-bom-hyd', '.line-hyd-maa'];
-        hubs = ['.hub-mumbai', '.hub-hyd', '.hub-maa'];
-      } else if (route === 'pune-chennai') {
-        lines = ['.line-pnq-hyd', '.line-hyd-maa'];
-        hubs = ['.hub-pune', '.hub-hyd', '.hub-maa'];
-      } else if (route === 'tamilnadu-maharashtra') {
-        lines = ['.line-bom-hyd', '.line-bom-pnq', '.line-hyd-maa'];
-        hubs = ['.hub-mumbai', '.hub-pune', '.hub-hyd', '.hub-maa'];
-      }
-
-      lines.forEach(sel => {
-        document.querySelectorAll(sel).forEach(el => el.classList.add('active'));
-      });
-      hubs.forEach(sel => {
-        const h = document.querySelector(sel);
-        if (h) h.classList.add('active');
-      });
-    });
-
-    card.addEventListener('mouseleave', () => {
-      mapLinks.forEach(link => link.classList.remove('active'));
-      mapHubs.forEach(hub => hub.classList.remove('active'));
-    });
   });
 }
 

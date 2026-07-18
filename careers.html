@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Careers & Opportunities | Chitkote Logistics</title>
+  <meta name="description" content="Join Chitkote Logistics. Build your career with South India's premier transport network.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Outfit:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+</head>
+
+<body class="careers-body">
+
+  <!-- Header -->
+  <header class="site-header">
+    <div class="top-bar">
+      <div class="top-bar-inner">
+        <div class="top-bar-left">
+          <span class="badge-mini">✓ GST Registered</span>
+          <span class="badge-mini">✓ IBA Approved Vendor</span>
+        </div>
+        <div class="top-bar-right">
+          <span>24/7 Dispatch Desk: <strong><a href="tel:+919390003955">+91 93900 03955</a></strong></span>
+        </div>
+      </div>
+    </div>
+    <div class="header-inner">
+      <a class="brand" href="index.html">
+        <img class="brand-logo" src="Images/newlogo_processed.png" alt="Chitkote Logistics Logo" width="69" height="45">
+        <span class="brand-name">Chitkote Logistics</span>
+      </a>
+      <nav class="main-nav" aria-label="Careers navigation">
+        <a href="index.html#home">Home</a>
+        <a href="index.html#services">Services</a>
+        <a href="index.html#fleet">Fleet</a>
+        <a href="careers.html" class="active nav-highlight">Careers</a>
+        <a href="admin.html">Admin Desk</a>
+      </nav>
+    </div>
+  </header>
+
+  <main style="padding-top: 100px; min-height: 85vh; padding-bottom: 60px;">
+    <!-- CAREERS & JOB OPENINGS SECTION -->
+    <section id="careers" class="section section-careers" style="background:#f8fafc; padding: 40px 0;">
+      <div class="container" style="max-width: 1200px; margin: 0 auto; padding: 0 20px;">
+        <div class="section-heading" style="text-align: center; margin-bottom: 40px;">
+          <p class="eyebrow">Join Chitkote Logistics</p>
+          <h2>Current Job Openings & Opportunities</h2>
+          <p>Build your career with South India's premier transport network. We are hiring operational talents, fleet managers, and sales professionals.</p>
+        </div>
+
+        <div id="publicCareersGrid" style="display: grid; grid-template-columns: repeat(auto-fill, minmax(320px, 1fr)); gap: 24px;">
+          <!-- Dynamically rendered via CareersManager in onboarding.js -->
+        </div>
+      </div>
+    </section>
+
+    <!-- PUBLIC JOB APPLICATION MODAL -->
+    <div class="custom-modal" id="jobApplyModal" style="display:none; position: fixed; top: 0; left: 0; right: 0; bottom: 0; background: rgba(15, 23, 42, 0.6); align-items: center; justify-content: center; z-index: 9999;">
+      <div class="modal-content-box" style="max-width: 600px; width: 90%; max-height: 90vh; overflow-y: auto; background: #ffffff; border-radius: 12px; padding: 24px;">
+        <div class="modal-header" style="display: flex; justify-content: space-between; align-items: flex-start; border-bottom: 1px solid #e2e8f0; padding-bottom: 16px;">
+          <div>
+            <span class="badge-mini" id="applyJobCode">JOB-001 • Operations</span>
+            <h3 id="applyJobTitle" style="margin: 6px 0 0 0; font-size: 1.35rem; color: #1e293b;">Dispatch Operations Executive</h3>
+          </div>
+          <button type="button" class="modal-close-btn" id="btnCloseJobApplyModal" style="background: none; border: none; font-size: 1.5rem; cursor: pointer; color: #64748b;">&times;</button>
+        </div>
+        <div class="modal-body" style="padding-top: 16px;">
+          <div style="display: flex; gap: 16px; margin-bottom: 16px; font-size: 0.9rem; color: #475569; background: #f8fafc; padding: 12px; border-radius: 8px;">
+            <span>📍 Location: <strong id="applyJobLocation">Hyderabad</strong></span>
+            <span>⏱️ Experience: <strong id="applyJobExp">2 - 4 Years</strong></span>
+          </div>
+
+          <h5 style="margin: 12px 0 6px 0; color: #1e293b;">Job Description Summary</h5>
+          <p id="applyJobDesc" style="font-size: 0.92rem; color: #475569; line-height: 1.5;"></p>
+
+          <h5 style="margin: 14px 0 6px 0; color: #1e293b;">Key Responsibilities</h5>
+          <ul id="applyJobResp" style="font-size: 0.9rem; color: #475569; padding-left: 20px; line-height: 1.5;"></ul>
+
+          <h5 style="margin: 14px 0 6px 0; color: #1e293b;">Candidate Requirements</h5>
+          <ul id="applyJobReq" style="font-size: 0.9rem; color: #475569; padding-left: 20px; line-height: 1.5;"></ul>
+
+          <div style="margin-top: 24px; border-top: 1px solid #e2e8f0; padding-top: 16px;">
+            <h4 style="margin: 0 0 12px 0; color: #1e293b;">Apply for this Position</h4>
+            <form id="jobApplyForm" onsubmit="return false;" style="display: flex; flex-direction: column; gap: 12px;">
+              <label style="display: flex; flex-direction: column; font-size: 0.88rem; font-weight: 600; color: #334155;">
+                Full Name *
+                <input type="text" id="appFullName" placeholder="e.g. Ramesh Kumar" required style="margin-top: 4px; padding: 10px; border: 1px solid #cbd5e1; border-radius: 6px;">
+              </label>
+              <label style="display: flex; flex-direction: column; font-size: 0.88rem; font-weight: 600; color: #334155;">
+                Mobile Phone Number *
+                <input type="tel" id="appMobile" placeholder="e.g. 9876543210" maxlength="10" required style="margin-top: 4px; padding: 10px; border: 1px solid #cbd5e1; border-radius: 6px;">
+              </label>
+              <label style="display: flex; flex-direction: column; font-size: 0.88rem; font-weight: 600; color: #334155;">
+                Email Address
+                <input type="email" id="appEmail" placeholder="e.g. ramesh@gmail.com" style="margin-top: 4px; padding: 10px; border: 1px solid #cbd5e1; border-radius: 6px;">
+              </label>
+              <label style="display: flex; flex-direction: column; font-size: 0.88rem; font-weight: 600; color: #334155;">
+                Brief Experience / CV Cover Note
+                <textarea id="appNote" rows="2" placeholder="Tell us briefly about your transport / logistics background..." style="margin-top: 4px; padding: 10px; border: 1px solid #cbd5e1; border-radius: 6px;"></textarea>
+              </label>
+              <button type="button" class="btn btn-primary" id="btnSubmitJobApp" style="padding: 12px; margin-top: 8px; cursor: pointer;">
+                Submit Job Application
+              </button>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <!-- Footer -->
+  <footer class="site-footer">
+    <div class="footer-bottom" style="text-align: center; padding: 20px;">
+      <p>&copy; 2026 Chitkote Logistics India Pvt. Ltd. | Careers Portal</p>
+    </div>
+  </footer>
+
+  <script src="script.js"></script>
+  <script src="onboarding.js"></script>
+</body>
+
+</html>
